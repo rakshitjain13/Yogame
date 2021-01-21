@@ -3,12 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@tensorflow-models/mobilenet": "^2.0.4",
+    "@tensorflow/tfjs": "^2.8.5",
+    "@tensorflow/tfjs-backend-webgl": "^2.8.5",
+    "@tensorflow/tfjs-converter": "^2.8.5",
+    "@tensorflow/tfjs-core": "^2.8.5",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.1",
+    "react-webcam": "^5.2.2",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
