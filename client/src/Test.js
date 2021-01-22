@@ -49,12 +49,15 @@ export default function Test() {
 				}}
 			/>
 
-			{pred.map((row,i) => {
+			{pred.map((row, i) => {
 				return <h5>{row.className}</h5>;
 			})}
-            <button onClick={gothrough}>
-                Done
-            </button>
+			<div
+				className="text-xl bg-yellow-400  rounded-xl border-none text-white px-2 inline-block cursor-pointer hover:text-black"
+				onClick={gothrough}
+			>
+				Done
+			</div>
 		</div>
 	);
 }
