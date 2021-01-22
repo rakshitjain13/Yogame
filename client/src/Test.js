@@ -1,25 +1,36 @@
-import  { useEffect, useRef, useState } from "react";
-import * as mobilenet from '@tensorflow-models/mobilenet';
-import Webcam from 'react-webcam';
+import { useEffect, useRef, useState } from "react";
+import * as mobilenet from "@tensorflow-models/mobilenet";
+import Webcam from "react-webcam";
 
 export default function Test() {
-    const webcamRef = useRef(null);
-    const [pred, setpred] = useState(["Model is Loading"]);
+	const webcamRef = useRef(null);
+    const [pred, setpred] = useState([{className:"Model is Loading"}]);
 
-    const objdetect=async ()=>{
-        const img=webcamRef.current.video;    
-        const model = await mobilenet.load();
-        setInterval(async () => {
-            if(img){
-            const predictions = await model.classify(img);
-            // console.log(predictions[0].className);
-            setpred(predictions);
+	const objdetect = async () => {
+		const model = await mobilenet.load();
+		var intervalID=setInterval(async () => {
+			if (
+				typeof webcamRef.current !== "undefined" &&
+				webcamRef.current !== null &&
+				webcamRef.current.video.readyState === 4
+			) {
+                const img = webcamRef.current.video;
+				const predictions = await model.classify(img);
+				// console.log(predictions[0].className);
+				setpred(predictions);
+            }else{
+                clearInterval(intervalID);
             }
+           
+           
         }, 1000);
+	};
+	useEffect(() => {
+		objdetect();
+    }, []);
+    const gothrough=()=>{
+        webcamRef.current=null;
     }
-    useEffect(() => {
-        objdetect();
-    }, [])
 	return (
 		<div>
 			<Webcam
@@ -37,10 +48,13 @@ export default function Test() {
 					height: 480,
 				}}
 			/>
-          
-                {pred.map((row)=>{
-                    return <h5>{row.className}</h5>;
-                })}
+
+			{pred.map((row,i) => {
+				return <h5>{row.className}</h5>;
+			})}
+            <button onClick={gothrough}>
+                Done
+            </button>
 		</div>
 	);
 }
