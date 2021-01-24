@@ -1,10 +1,10 @@
 import './App.css';
-import Test from './Test';
+import Posnet from './posnet/Posnet';
 
 function App() {
   return (
     <div className="">
-     <Test/>
+     <Posnet/>
     </div>
   );
 }
