@@ -7,6 +7,7 @@ function Posnet() {
 	const canvasRef = useRef(null);
 	const [poses,Setposes]=useState([]);
 	const [swap,Setswap]=useState(false);
+	const [facing,Setfacing]=useState(false);
 	const drawRect = (poses, ctx) => {
         // ctx.drawImage(webcamRef.current.video, 0, 0);
 		const pose = poses[0].pose;
@@ -87,9 +88,14 @@ function Posnet() {
 			drawRect(poses, ctx);
 		});
 	}
+	const videoConstraints = {
+		facingMode: facing? { exact: "environment" } : "user"
+	};
+
 	return (
 		<div className="h-screen overflow-hidden">
 			<Webcam
+				videoConstraints={videoConstraints}
 				ref={webcamRef}
 				muted={true}
 				style={{
@@ -120,8 +126,17 @@ function Posnet() {
 					height: 480,
 				}}
 			/>
-			<div className="inline-block bottom-0 absolute px-3 py-2 rounded-xl cursor-pointer bg-yellow-400 text-lg text-black" onClick={()=>Setswap(!swap)}>
-				Swap
+			<div
+				className="inline-block bottom-0 absolute px-3 py-2 rounded-xl cursor-pointer bg-yellow-400 text-lg text-black"
+				onClick={() => Setswap(!swap)}
+			>
+				swap
+			</div>
+			<div
+				className="inline-block absolute bottom-0 right-0 px-3 py-2 rounded-xl cursor-pointer bg-yellow-400 text-lg text-black"
+				onClick={() => Setfacing(!facing)}
+			>
+				{facing ? "Front" : "Back"}
 			</div>
 		</div>
 	);
