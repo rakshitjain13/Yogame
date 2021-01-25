@@ -6,6 +6,7 @@ function Posnet() {
 	const webcamRef = useRef(null);
 	const canvasRef = useRef(null);
 	const [poses,Setposes]=useState([]);
+	const [swap,Setswap]=useState(false);
 	const drawRect = (poses, ctx) => {
         // ctx.drawImage(webcamRef.current.video, 0, 0);
 		const pose = poses[0].pose;
@@ -44,7 +45,6 @@ function Posnet() {
 
 		const poseNet = ml5.poseNet(
 			webcamRef.current.video,
-			{ flipHorizontal: true },
 			() => {
 				console.log("Modal Loaded");
 
@@ -88,12 +88,12 @@ function Posnet() {
 		});
 	}
 	return (
-		<div>
+		<div className="h-screen overflow-hidden">
 			<Webcam
 				ref={webcamRef}
 				muted={true}
 				style={{
-					transform: "scaleX(-1)",
+					transform: swap && "scaleX(-1)",
 					position: "absolute",
 					marginLeft: "auto",
 					marginRight: "auto",
@@ -108,6 +108,7 @@ function Posnet() {
 			<canvas
 				ref={canvasRef}
 				style={{
+					transform: swap && "scaleX(-1)",
 					position: "absolute",
 					marginLeft: "auto",
 					marginRight: "auto",
@@ -119,6 +120,9 @@ function Posnet() {
 					height: 480,
 				}}
 			/>
+			<div className="inline-block bottom-0 absolute px-3 py-2 rounded-xl cursor-pointer bg-yellow-400 text-lg text-black" onClick={()=>Setswap(!swap)}>
+				Swap
+			</div>
 		</div>
 	);
 }
