@@ -14,9 +14,9 @@ function App() {
   return (
     <div className="">
       {/* <Collect/> */}
-      <Tfposnet/>
+      {/* <Tfposnet/> */}
      {/* <Posnet/> */}
-     {/* <Trainedmodel/> */}
+     <Trainedmodel/>
     </div>
   );
 }

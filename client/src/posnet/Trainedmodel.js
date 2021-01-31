@@ -18,10 +18,11 @@ function Trainedmodel() {
 	const webcamRef = useRef(null);
 	const canvasRef = useRef(null);
 	const [poses, Setposes] = useState([]);
-	const [swap, Setswap] = useState(false);
+	const [swap, Setswap] = useState(true);
 	const [facing, Setfacing] = useState(false);
 	const [collecting, Setcollecting] = useState(false);
 	const [targetLabel, Setlabel] = useState("");
+	const [resultspose,Setresultspose]=useState([]);
 	const brain=useRef(null);
 
 	const drawRect = (poses, ctx) => {
@@ -104,8 +105,9 @@ function Trainedmodel() {
 					// console.log(results[0]);
 					if (error) {
 						console.log(error);
-					} else if (results[0].confidence > 0.9) {
-						console.log(results[0].label,results[0].confidence);
+					} else  {
+						Setresultspose(results)
+						// console.log(results[0].label,results[0].confidence);
 					}
 					//console.log(results[0].confidence);
 				});
@@ -187,6 +189,11 @@ function Trainedmodel() {
 					>
 						{facing ? "Front" : "Back"}
 					</div> */}
+				{/* {resultspose.map((pose,i)=>{
+					<div className="text-2xl text-black">
+					{pose.label}{pose.confidence} 
+				</div>
+				})} */}
 			</div>
 		</div>
 	);

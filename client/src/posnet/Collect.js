@@ -22,7 +22,7 @@ function Collect() {
 	const [loaded,Setloaded]=useState(false);
 	const brain=useRef(null);
 	const [poses, Setposes] = useState([]);
-	const [swap, Setswap] = useState(false);
+	const [swap, Setswap] = useState(true);
 	const [facing, Setfacing] = useState(false);
 	const [collecting, Setcollecting] = useState(false);
 	const [targetLabel, Setlabel] = useState("");
@@ -116,7 +116,7 @@ function Collect() {
                 Setcollecting(false);
             console.log("Stop Collecting");
 			}, 10000);
-		}, 1000);
+		}, 5000);
     };
     const savedata=()=>{
         brain.current.saveData();
@@ -181,6 +181,9 @@ function Collect() {
 				>
 					Train
 				</div>
+				<p className="text-3xl text-black">
+					{collecting?" Collecting ":"Not Collecting"}
+				</p>
 				{/* <div
 						className="inline-block absolute bottom-0 right-0 px-3 py-2 rounded-xl cursor-pointer bg-yellow-400 text-lg text-black"
 						onClick={() => Setfacing(!facing)}
