@@ -1,4 +1,4 @@
-import  { useEffect, useRef, useState } from "react";
+import  { useCallback, useEffect, useRef, useState } from "react";
 import * as ml5 from "ml5";
 import Webcam from "react-webcam";
 
@@ -8,6 +8,15 @@ function Posnet() {
 	const [poses,Setposes]=useState([]);
 	const [swap,Setswap]=useState(false);
 	const [facing,Setfacing]=useState(false);
+	const [deviceId, setDeviceId] = useState({});
+	const [devices, setDevices] =useState([]);
+
+	const handleDevices = useCallback(
+		(mediaDevices) =>
+			setDevices(mediaDevices.filter(({ kind }) => kind === "videoinput")),
+		[setDevices]
+	);
+
 	const drawRect = (poses, ctx) => {
         // ctx.drawImage(webcamRef.current.video, 0, 0);
 		const pose = poses[0].pose;
@@ -79,8 +88,8 @@ function Posnet() {
 		);
 	};
 	useEffect(() => {
-		detection();
-	}, []);
+		navigator.mediaDevices.enumerateDevices().then(handleDevices);
+	}, [handleDevices]);
 	if(poses.length>0){
 		const ctx = canvasRef.current.getContext("2d");
 		ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
@@ -88,13 +97,22 @@ function Posnet() {
 			drawRect(poses, ctx);
 		});
 	}
-	const videoConstraints = {
-		facingMode: facing? { exact: "environment" } : "user"
-	};
+	// const videoConstraints = {
+	// 	facingMode: facing? { exact: "environment" } : "user"
+	// };
 
 	return (
-		<div className="h-screen overflow-hidden">
-			<Webcam
+		<div className=" ">
+			{devices.map((device, key) => (
+				<div>
+					<Webcam
+						audio={false}
+						videoConstraints={{ deviceId: device.deviceId }}
+					/>
+					{device.label || `Device ${key + 1}`}
+				</div>
+			))}
+			{/* <Webcam
 				videoConstraints={videoConstraints}
 				ref={webcamRef}
 				muted={true}
@@ -137,7 +155,7 @@ function Posnet() {
 				onClick={() => Setfacing(!facing)}
 			>
 				{facing ? "Front" : "Back"}
-			</div>
+			</div> */}
 		</div>
 	);
 }
