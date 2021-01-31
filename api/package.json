@@ -7,11 +7,15 @@
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
+<<<<<<< HEAD
     "cors": "^2.8.5",
+=======
+>>>>>>> 0bf21a919f2c04bbab3f2da5113c5041ddb60f55
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
+<<<<<<< HEAD
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.14",
     "morgan": "~1.9.1",
@@ -19,5 +23,8 @@
     "passport": "^0.4.1",
     "passport-google-oauth2": "^0.2.0",
     "passport-jwt": "^4.0.0"
+=======
+    "morgan": "~1.9.1"
+>>>>>>> 0bf21a919f2c04bbab3f2da5113c5041ddb60f55
   }
 }
