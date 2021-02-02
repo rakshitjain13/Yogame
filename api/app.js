@@ -55,7 +55,15 @@ app.get('/failed', (req, res) => {
 });
 
 app.get('/good', (req, res) => {
-  res.send('logged in');
+			res.json({
+				message: "User ",
+				user: req.user,
+			});
+		 
+});
+
+app.options("/google", (req, res) => {
+	res.sendStatus(200);
 });
 
 app.get(
@@ -68,8 +76,9 @@ app.get('/google/callback', function (req, res, next) {
     if (err) {
       res.redirect('/failed');
     } else {
-      console.log(user);
-      res.send(JSON.stringify(req.user));
+      res.redirect("http://localhost:3000");
+      // console.log(user);
+      // res.send(JSON.stringify(user));
       /*res.statusCode = 200;
       res.send({ user: user });*/
     }

@@ -66,8 +66,13 @@ function Collect() {
 	const detection = () => {
 	
 
-		const poseNet = ml5.poseNet(webcamRef.current.video, () => {
-			console.log("Modal Loaded");
+		const poseNet = ml5.poseNet(
+			webcamRef.current.video,
+			{
+				architecture: "ResNet50",
+			},
+			() => {
+				console.log("Modal Loaded");
 
 				const videoWidth = webcamRef.current.video.videoWidth;
 				const videoHeight = webcamRef.current.video.videoHeight;
@@ -82,7 +87,8 @@ function Collect() {
 						Setposes(poses);
 					}
 				});
-		});
+			}
+		);
 	};
 	useEffect(() => {
 		brain.current = ml5.neuralNetwork(options);

@@ -60,17 +60,14 @@ function Trainedmodel() {
 		// 	webcamRef.current.video.readyState === 4
 		// )
 
-		const poseNet = ml5.poseNet(webcamRef.current.video, () => {
-			console.log("Modal Loaded");
+		const poseNet = ml5.poseNet(
+			webcamRef.current.video,
+			() => {
+				console.log("Modal Loaded");
 				brain.current.load(modelInfo, () => {
 					console.log("pose classification ready!");
 				});
 
-			if (
-				typeof webcamRef.current !== "undefined" &&
-				webcamRef.current !== null &&
-				webcamRef.current.video.readyState === 4
-			) {
 				const videoWidth = webcamRef.current.video.videoWidth;
 				const videoHeight = webcamRef.current.video.videoHeight;
 
@@ -82,15 +79,16 @@ function Trainedmodel() {
 				poseNet.on("pose", (poses) => {
 					if (poses.length > 0) {
 						Setposes(poses);
+						classifyPose(poses);
 					}
 				});
 			}
-		});
+		);
 	
 	};
 	useEffect(() => {
 		 brain.current = ml5.neuralNetwork(options);
-		detection();
+		 detection();
 	}, []);
 		const classifyPose = (poses) => {
 				const pose = poses[0].pose;
@@ -107,14 +105,15 @@ function Trainedmodel() {
 						console.log(error);
 					} else  {
 						Setresultspose(results)
-						// console.log(results[0].label,results[0].confidence);
+						console.log(results[0].label,results[0].confidence);
 					}
 					//console.log(results[0].confidence);
 				});
+
 		};
 	
 	if (poses.length > 0) {
-		classifyPose(poses);
+		// classifyPose(poses);
 		const ctx = canvasRef.current.getContext("2d");
 		ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
 		requestAnimationFrame(() => {
