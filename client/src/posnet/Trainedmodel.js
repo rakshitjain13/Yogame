@@ -4,7 +4,7 @@ import * as ml5 from "ml5";
 import Webcam from "react-webcam";
 let options = {
 	inputs: 34,
-	outputs: 2,
+	outputs:  ['label'],
 	task: "classification",
 	debug: true,
 };
@@ -20,11 +20,8 @@ function Trainedmodel() {
 	const [poses, Setposes] = useState([]);
 	const [swap, Setswap] = useState(true);
 	const [facing, Setfacing] = useState(false);
-	const [collecting, Setcollecting] = useState(false);
-	const [targetLabel, Setlabel] = useState("");
 	const [resultspose,Setresultspose]=useState([]);
 	const brain=useRef(null);
-
 	const drawRect = (poses, ctx) => {
 		// ctx.drawImage(webcamRef.current.video, 0, 0);
 		const pose = poses[0].pose;
@@ -54,11 +51,6 @@ function Trainedmodel() {
 		// ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
 	};
 	const detection = () => {
-		// if (
-		// 	typeof webcamRef.current !== "undefined" &&
-		// 	webcamRef.current !== null &&
-		// 	webcamRef.current.video.readyState === 4
-		// )
 
 		const poseNet = ml5.poseNet(
 			webcamRef.current.video,
@@ -97,7 +89,7 @@ function Trainedmodel() {
 					let x = pose.keypoints[i].position.x;
 					let y = pose.keypoints[i].position.y;
 					inputs.push(x);
-					inputs.push(y);
+					inputs.push(y);	
 				}
 				brain.current.classify(inputs, (error, results) => {
 					// console.log(results[0]);
@@ -188,11 +180,11 @@ function Trainedmodel() {
 					>
 						{facing ? "Front" : "Back"}
 					</div> */}
-				{/* {resultspose.map((pose,i)=>{
+					{resultspose.length>0 && 
 					<div className="text-2xl text-black">
-					{pose.label}{pose.confidence} 
-				</div>
-				})} */}
+					{resultspose[0].label}{resultspose[0].confidence} 
+					</div>
+				}
 			</div>
 		</div>
 	);

@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@craco/craco": "^6.0.0",
+    "@headlessui/react": "^0.2.0",
     "@tailwindcss/postcss7-compat": "^2.0.2",
     "@tensorflow-models/mobilenet": "^2.0.4",
     "@tensorflow-models/posenet": "^2.2.1",

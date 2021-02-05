@@ -4,7 +4,7 @@ import * as ml5 from "ml5";
 import Webcam from "react-webcam";
 let options = {
 	inputs: 34,
-	outputs: 2,
+	outputs: ['label'],
 	task: "classification",
 	debug: true,
 };
@@ -12,7 +12,7 @@ let options = {
 // brain.loadData("../testdata.json", ()=>{
 //          brain.normalizeData();
 // 		brain.train({ epochs: 50 }, ()=>{
-//             console.log("model trained");
+//             console.log'x("model trained");
 // 						brain.save();
 //         }); 
 // });
@@ -26,14 +26,7 @@ function Collect() {
 	const [facing, Setfacing] = useState(false);
 	const [collecting, Setcollecting] = useState(false);
 	const [targetLabel, Setlabel] = useState("");
-		const [deviceId, setDeviceId] = useState({});
-		const [devices, setDevices] = useState([]);
 
-	const handleDevices = useCallback(
-		(mediaDevices) =>
-			setDevices(mediaDevices.filter(({ kind }) => kind === "videoinput")),
-		[setDevices]
-	);
 
 	const drawRect = (poses, ctx) => {
 		// ctx.drawImage(webcamRef.current.video, 0, 0);
@@ -68,9 +61,6 @@ function Collect() {
 
 		const poseNet = ml5.poseNet(
 			webcamRef.current.video,
-			{
-				architecture: "ResNet50",
-			},
 			() => {
 				console.log("Modal Loaded");
 
@@ -105,7 +95,9 @@ function Collect() {
 				inputs.push(x);
 				inputs.push(y);
 			}
-			let target = [targetLabel];
+			let target = {
+				'label':targetLabel
+			};
 			brain.current.addData(inputs, target);
 		}
 		const ctx = canvasRef.current.getContext("2d");
@@ -127,13 +119,6 @@ function Collect() {
     const savedata=()=>{
         brain.current.saveData();
     }
-	// const videoConstraints = {
-	// 	deviceId: devices[1].deviceId ? devices[1].deviceId : 0,
-	// };
-	// if (targetLabel != "") {
-	// 			console.log(targetLabel);
-	// 		}
-	// console.log(collecting)
 	return (
 		<div>
 			<div className="h-screen overflow-hidden">
@@ -190,12 +175,6 @@ function Collect() {
 				<p className="text-3xl text-black">
 					{collecting?" Collecting ":"Not Collecting"}
 				</p>
-				{/* <div
-						className="inline-block absolute bottom-0 right-0 px-3 py-2 rounded-xl cursor-pointer bg-yellow-400 text-lg text-black"
-						onClick={() => Setfacing(!facing)}
-					>
-						{facing ? "Front" : "Back"}
-					</div> */}
 			</div>
 		</div>
 	);
