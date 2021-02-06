@@ -1,7 +1,7 @@
 import * as ml5 from 'ml5';
 let options = {
   inputs: 34,
-  outputs: 2,
+  outputs: ['label'],
   task: 'classification',
   debug: true,
 };

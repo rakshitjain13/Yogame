@@ -4,7 +4,7 @@ import * as ml5 from 'ml5';
 import Webcam from 'react-webcam';
 let options = {
   inputs: 34,
-  outputs: 2,
+  outputs: ['label'],
   task: 'classification',
   debug: true,
 };
@@ -20,11 +20,8 @@ function Trainedmodel() {
   const [poses, Setposes] = useState([]);
   const [swap, Setswap] = useState(true);
   const [facing, Setfacing] = useState(false);
-  const [collecting, Setcollecting] = useState(false);
-  const [targetLabel, Setlabel] = useState('');
   const [resultspose, Setresultspose] = useState([]);
   const brain = useRef(null);
-
   const drawRect = (poses, ctx) => {
     // ctx.drawImage(webcamRef.current.video, 0, 0);
     const pose = poses[0].pose;
@@ -51,6 +48,7 @@ function Trainedmodel() {
 
       ctx.stroke();
     }
+    // ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
   };
   const detection = () => {
     const poseNet = ml5.poseNet(webcamRef.current.video, () => {
@@ -59,34 +57,26 @@ function Trainedmodel() {
         console.log('pose classification ready!');
       });
 
-      if (
-        typeof webcamRef.current !== 'undefined' &&
-        webcamRef.current !== null &&
-        webcamRef.current.video.readyState === 4
-      ) {
-        const videoWidth = webcamRef.current.video.videoWidth;
-        const videoHeight = webcamRef.current.video.videoHeight;
+      const videoWidth = webcamRef.current.video.videoWidth;
+      const videoHeight = webcamRef.current.video.videoHeight;
 
-        // Set video width
-        webcamRef.current.video.width = videoWidth;
-        webcamRef.current.video.height = videoHeight;
-        canvasRef.current.width = videoWidth;
-        canvasRef.current.height = videoHeight;
-
-        poseNet.on('pose', (poses) => {
-          if (poses.length > 0) {
-            Setposes(poses);
-          }
-        });
-      }
+      // Set video width
+      webcamRef.current.video.width = videoWidth;
+      webcamRef.current.video.height = videoHeight;
+      canvasRef.current.width = videoWidth;
+      canvasRef.current.height = videoHeight;
+      poseNet.on('pose', (poses) => {
+        if (poses.length > 0) {
+          Setposes(poses);
+          classifyPose(poses);
+        }
+      });
     });
   };
-
   useEffect(() => {
     brain.current = ml5.neuralNetwork(options);
     detection();
   }, []);
-
   const classifyPose = (poses) => {
     const pose = poses[0].pose;
     let inputs = [];
@@ -102,14 +92,14 @@ function Trainedmodel() {
         console.log(error);
       } else {
         Setresultspose(results);
-        // console.log(results[0].label,results[0].confidence);
+        console.log(results[0].label, results[0].confidence);
       }
       //console.log(results[0].confidence);
     });
   };
 
   if (poses.length > 0) {
-    classifyPose(poses);
+    // classifyPose(poses);
     const ctx = canvasRef.current.getContext('2d');
     ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
     requestAnimationFrame(() => {
@@ -119,7 +109,10 @@ function Trainedmodel() {
   const videoConstraints = {
     facingMode: facing ? { exact: 'environment' } : 'user',
   };
-
+  // if (targetLabel != "") {
+  // 			console.log(targetLabel);
+  // 		}
+  // console.log(collecting);
   return (
     <div>
       <div className='h-screen overflow-hidden'>
@@ -154,6 +147,37 @@ function Trainedmodel() {
             height: 480,
           }}
         />
+        {/* <input
+					type="text"
+					name="label"
+					className=" border-black border-2"
+					onChange={(e) => Setlabel(e.target.value)}
+				/>
+
+				<div
+					className="inline-block px-3 py-2 rounded-xl cursor-pointer bg-yellow-400 text-lg text-black"
+					onClick={() => savedata()}
+				>
+					Save
+				</div>
+				<div
+					className="inline-block px-3 py-2 rounded-xl cursor-pointer bg-yellow-400 text-lg text-black"
+					onClick={() => collecttrain()}
+				>
+					Train
+				</div> */}
+        {/* <div
+						className="inline-block absolute bottom-0 right-0 px-3 py-2 rounded-xl cursor-pointer bg-yellow-400 text-lg text-black"
+						onClick={() => Setfacing(!facing)}
+					>
+						{facing ? "Front" : "Back"}
+					</div> */}
+        {resultspose.length > 0 && (
+          <div className='text-2xl text-black'>
+            {resultspose[0].label}
+            {resultspose[0].confidence}
+          </div>
+        )}
       </div>
     </div>
   );

@@ -4,11 +4,18 @@ import * as ml5 from 'ml5';
 import Webcam from 'react-webcam';
 let options = {
   inputs: 34,
-  outputs: 2,
+  outputs: ['label'],
   task: 'classification',
   debug: true,
 };
-
+// const brain = ml5.neuralNetwork(options);
+// brain.loadData("../testdata.json", ()=>{
+//          brain.normalizeData();
+// 		brain.train({ epochs: 50 }, ()=>{
+//             console.log'x("model trained");
+// 						brain.save();
+//         });
+// });
 function Collect() {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
@@ -19,14 +26,6 @@ function Collect() {
   const [facing, Setfacing] = useState(false);
   const [collecting, Setcollecting] = useState(false);
   const [targetLabel, Setlabel] = useState('');
-  const [deviceId, setDeviceId] = useState({});
-  const [devices, setDevices] = useState([]);
-
-  const handleDevices = useCallback(
-    (mediaDevices) =>
-      setDevices(mediaDevices.filter(({ kind }) => kind === 'videoinput')),
-    [setDevices]
-  );
 
   const drawRect = (poses, ctx) => {
     const pose = poses[0].pose;
@@ -58,19 +57,25 @@ function Collect() {
     const poseNet = ml5.poseNet(webcamRef.current.video, () => {
       console.log('Modal Loaded');
 
-      const videoWidth = webcamRef.current.video.videoWidth;
-      const videoHeight = webcamRef.current.video.videoHeight;
+      const poseNet = ml5.poseNet(webcamRef.current.video, () => {
+        console.log('Modal Loaded');
 
-      // Set video width
-      webcamRef.current.video.width = videoWidth;
-      webcamRef.current.video.height = videoHeight;
-      canvasRef.current.width = videoWidth;
-      canvasRef.current.height = videoHeight;
+        // Set video width
+        webcamRef.current.video.width = videoWidth;
+        webcamRef.current.video.height = videoHeight;
+        canvasRef.current.width = videoWidth;
+        canvasRef.current.height = videoHeight;
 
-      poseNet.on('pose', (poses) => {
-        if (poses.length > 0) {
-          Setposes(poses);
-        }
+        // Set video width
+        webcamRef.current.video.width = videoWidth;
+        webcamRef.current.video.height = videoHeight;
+        canvasRef.current.width = videoWidth;
+        canvasRef.current.height = videoHeight;
+        poseNet.on('pose', (poses) => {
+          if (poses.length > 0) {
+            Setposes(poses);
+          }
+        });
       });
     });
   };
@@ -89,7 +94,9 @@ function Collect() {
         inputs.push(x);
         inputs.push(y);
       }
-      let target = [targetLabel];
+      let target = {
+        label: targetLabel,
+      };
       brain.current.addData(inputs, target);
     }
     const ctx = canvasRef.current.getContext('2d');
@@ -111,7 +118,6 @@ function Collect() {
   const savedata = () => {
     brain.current.saveData();
   };
-
   return (
     <div>
       <div className='h-screen overflow-hidden'>
