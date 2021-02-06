@@ -11,6 +11,7 @@ var config = require('./config');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var googleRouter = require('./routes/google');
 
 var app = express();
 const url = config.mongoURL;
@@ -26,16 +27,11 @@ connect.then(
     console.log(err);
   }
 );
-
+let currentUser;
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-app.use(
-  cors({
-    origin: true,
-    credentials: true,
-  })
-);
+app.use(cors());
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -46,38 +42,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/google', googleRouter);
 
 app.use(passport.initialize());
-app.use(passport.session());
-
-app.get('/failed', (req, res) => {
-  res.send('failed');
-});
-
-app.get('/good', (req, res) => {
-  res.send('logged in');
-});
-
-app.get(
-  '/google',
-  passport.authenticate('google', { scope: ['email', 'profile'] })
-);
-
-app.get('/google/callback', function (req, res, next) {
-  passport.authenticate('google', function (err, user, info) {
-    if (err) {
-      res.redirect('/failed');
-    } else {
-      console.log(user);
-      res.send(JSON.stringify(req.user));
-      /*res.statusCode = 200;
-      res.send({ user: user });*/
-    }
-  })(req, res, next);
-});
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 

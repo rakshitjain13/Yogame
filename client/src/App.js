@@ -1,43 +1,25 @@
 import './App.css';
-import Posnet from './posnet/Posnet';
-import Axios from 'axios';
-
-function App() {
-  const testfunction = () => {
-    Axios.get('http://localhost:5000/google')
-      .then((resp) => {
-        console.log(resp);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-  return (
-    <div className=''>
-      <div onClick={() => testfunction()}>press here</div>
-    </div>
-  );
-}
-
-import Collect from './posnet/Collect';
-import Posnet from './posnet/Posnet';
-import Tfposnet from './posnet/Tfposnet';
-import { testfunction } from './posnet/train';
-
+import React from 'react';
+import Login from './components/loginButton';
+import { BrowserRouter } from 'react-router-dom';
 import Trainedmodel from './posnet/Trainedmodel';
+import { Provider } from 'react-redux';
+import { ConfigureStore } from './redux/configureStore';
 
+const store = ConfigureStore();
 
-// testfunction();
-
-function App() {
-  
-  return (
-    <div className="">
-      {/* <Collect/> */}
-      {/* <Tfposnet/> */}
-     {/* <Posnet/> */}
-     <Trainedmodel/>
-    </div>
-  );
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <Provider store={store}>
+        <div className=''>
+          <Login />
+        </div>
+      </Provider>
+    );
+  }
 }
 export default App;
