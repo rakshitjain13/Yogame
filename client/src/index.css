@@ -4,7 +4,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Jost&display=swap');
 
 @tailwind utilities;
-body{
-    overflow-x: hidden;
+body {
+  overflow-x: hidden;
 }
-

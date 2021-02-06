@@ -1,75 +1,75 @@
-.mat{
-    position: absolute;
-    width:100%;
-    bottom: 2%;
-    right: -25%;
-    transform: rotate(-28deg);
+.mat {
+  position: absolute;
+  width: 100%;
+  bottom: 2%;
+  right: -25%;
+  transform: rotate(-28deg);
 }
-.pose{
-    position: absolute;
-    width:100%;
-    bottom: -5%;
-    right: -25%;
-    animation: MoveUpDown 3s linear infinite ;
+.pose {
+  position: absolute;
+  width: 100%;
+  bottom: -5%;
+  right: -25%;
+  animation: MoveUpDown 3s linear infinite;
 }
 @keyframes MoveUpDown {
-    0%, 100% {
+  0%,
+  100% {
     bottom: 20px;
   }
   50% {
     bottom: 50px;
   }
 }
-.ellipse{
-    position: absolute;
-    background-color:none;
-    border-color: #424874 !important;
-    border: 3px solid;
-    height: 33px;
-    width: 140px;
-    left:-0.5rem;
-    top:1.35rem;
-    z-index: -1;
-    border-radius: 50%;
-    transform: rotate(-15deg);
+.ellipse {
+  position: absolute;
+  background-color: none;
+  border-color: #424874 !important;
+  border: 3px solid;
+  height: 33px;
+  width: 140px;
+  left: -0.5rem;
+  top: 1.35rem;
+  z-index: -1;
+  border-radius: 50%;
+  transform: rotate(-15deg);
 }
-.ellipse1{
-    position: absolute;
-    background-color:none;
-    border-color: #a6b1e1 !important;
-    border: 3px solid;
-    height: 25px;
-    width: 120px;
-    left:0.15rem;
-    top:1.35rem;
-    z-index: -1;
-    border-radius: 50%;
-    transform: rotate(-15deg);
+.ellipse1 {
+  position: absolute;
+  background-color: none;
+  border-color: #a6b1e1 !important;
+  border: 3px solid;
+  height: 25px;
+  width: 120px;
+  left: 0.15rem;
+  top: 1.35rem;
+  z-index: -1;
+  border-radius: 50%;
+  transform: rotate(-15deg);
 }
-@media(min-width: 768px) {
-    .pose{
-        width:60%;
-        bottom: -10%;
-        right: -18%;
-    }
-    .mat{
-         width:70%;
-        bottom: -15%;
-        right: -20%;
-    }
-    .ellipse{
+@media (min-width: 768px) {
+  .pose {
+    width: 60%;
+    bottom: -10%;
+    right: -18%;
+  }
+  .mat {
+    width: 70%;
+    bottom: -15%;
+    right: -20%;
+  }
+  .ellipse {
     border: 5px solid;
     height: 50px;
     width: 200px;
-    left:-0.25rem;
-    top:2rem;
-
-    }
-    .ellipse1{
+    left: -0.25rem;
+    top: 2rem;
+  }
+  .ellipse1 {
     border: 5px solid;
     height: 40px;
     width: 180px;
-    left:0.15rem;
-    top:2rem;
-    }
+    left: 0.15rem;
+    top: 2rem;
+  }
 }
