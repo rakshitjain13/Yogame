@@ -1,5 +1,6 @@
 import { Transition } from '@headlessui/react';
 import { useState } from 'react';
+import {Link } from 'react-router-dom';
 function Header() {
   const [isuseropen, Setuseropen] = useState(false);
   const [isnavbar, Setnavbar] = useState(false);
@@ -61,7 +62,7 @@ function Header() {
               </button>
             </div>
             <div class='flex-1 flex items-center justify-center sm:items-stretch sm:justify-start'>
-              <div class='flex-shrink-0 flex items-center'>
+              <Link to='/' class='flex-shrink-0 flex items-center'>
                 <img
                   class='block lg:hidden h-8 w-auto'
                   src='https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg'
@@ -72,16 +73,16 @@ function Header() {
                   src='https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg'
                   alt='Workflow'
                 />
-              </div>
+              </Link>
               <div class='hidden sm:block sm:ml-6'>
                 <div class='flex space-x-4'>
                   {/* <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" --> */}
-                  <a
-                    href='/learn'
+                  <Link
+                    to='/learn'
                     class=' text-secondary-dark font-bold px-3 py-2  text-xl font-jost hover:bg-secondary-dark hover:text-primary-light rounded-3xl transition ease-in-out duration-300'
                   >
                     Learn
-                  </a>
+                  </Link>
                   <a
                     href='#'
                     class=' text-secondary-dark font-bold px-3 py-2  text-xl font-jost hover:bg-secondary-dark hover:text-primary-light rounded-3xl transition ease-in-out duration-300'

@@ -1,9 +1,11 @@
 import Matimage from '../images/mat.png';
+import Back from '../images/abstract-wallpaper_23-2148663179.jpg'
 import './home.css';
 import Pose from '../images/yoga-pose-estimation-removebg.png';
 function Home() {
   return (
     <div className='fixed w-full h-full'>
+      <img src={Back} alt="" className="back"/>
       <div className='mat'>
         <img src={Matimage} className='' alt='...' />
       </div>
