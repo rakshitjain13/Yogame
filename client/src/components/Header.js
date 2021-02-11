@@ -83,12 +83,12 @@ function Header() {
                   >
                     Learn
                   </Link>
-                  <a
-                    href='#'
+                  <Link
+                    to='/practice'
                     class=' text-secondary-dark font-bold px-3 py-2  text-xl font-jost hover:bg-secondary-dark hover:text-primary-light rounded-3xl transition ease-in-out duration-300'
                   >
                     Practice
-                  </a>
+                  </Link>
                   <a
                     href='#'
                     class=' text-secondary-dark font-bold px-3 py-2  text-xl font-jost hover:bg-secondary-dark hover:text-primary-light rounded-3xl transition ease-in-out duration-300'
