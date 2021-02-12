@@ -1,0 +1,10 @@
+.keep_img{
+    height: 300px;
+    width: 150px;
+}
+@media (max-width: 768px){
+    .keep_img{
+        height: 300px;
+        width: 150px;
+    }
+}

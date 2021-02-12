@@ -2,14 +2,19 @@ import React, { Component } from 'react';
 import Header from './Header';
 import Home from './Home';
 import Learn from './Learn';
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import Practice from './Practice';
 
 function Maincomponent() {
   return (
     <div className='bg-primary-light  h-full w-full'>
       <Header />
-      <Route exact path='/' component={() => <Home />} />
-      <Route exact path='/learn' component={() => <Learn />} />
+      <Switch>
+        <Route exact path='/' component={() => <Home />} />
+        <Route exact path='/learn' component={() => <Learn />} />
+        <Route exact path='/practice' component={() => <Practice />} />
+        <Redirect to='/' />
+      </Switch>
     </div>
   );
 }
