@@ -1,9 +1,17 @@
 import { Transition } from '@headlessui/react';
 import { useState } from 'react';
-import {Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import Login from '../components/loginButton';
+import { logoutUser } from '../redux/ActionCreator';
+
 function Header() {
   const [isuseropen, Setuseropen] = useState(false);
   const [isnavbar, Setnavbar] = useState(false);
+  const state = useSelector((state) => state);
+  const dispatch = useDispatch();
+  console.log('here');
+  console.log(state);
   return (
     <div>
       <nav class=''>
@@ -105,62 +113,52 @@ function Header() {
               </div>
             </div>
             <div class='absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0'>
-              {/* <!-- Profile dropdown --> */}
-              <div class='ml-3 relative'>
-                <div>
-                  <button
-                    class='bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white'
-                    id='user-menu'
-                    aria-haspopup='true'
-                    onClick={() => Setuseropen(!isuseropen)}
-                  >
-                    <span class='sr-only'>Open user menu</span>
-                    <img
-                      class='h-8 w-8 rounded-full'
-                      src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
-                      alt=''
-                    />
-                  </button>
-                </div>
-                <Transition
-                  show={isuseropen}
-                  enter='transition ease-out duration-100'
-                  enterFrom='transform opacity-0 scale-95'
-                  enterTo='transform opacity-100 scale-100'
-                  leave='transition ease-in duration-75'
-                  leaveFrom='transform opacity-100 scale-100'
-                  leaveTo='transform opacity-0 scale-95'
-                >
-                  <div
-                    class='origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 z-20'
-                    role='menu'
-                    aria-orientation='vertical'
-                    aria-labelledby='user-menu'
-                  >
-                    <a
-                      href='#'
-                      class='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
-                      role='menuitem'
+              {state.auth.isAuthenticated == true ? (
+                <div class='ml-3 relative'>
+                  <div>
+                    <button
+                      class='bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white'
+                      id='user-menu'
+                      aria-haspopup='true'
+                      onClick={() => Setuseropen(!isuseropen)}
                     >
-                      Your Profile
-                    </a>
-                    <a
-                      href='#'
-                      class='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
-                      role='menuitem'
-                    >
-                      Settings
-                    </a>
-                    <a
-                      href='#'
-                      class='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
-                      role='menuitem'
-                    >
-                      Sign out
-                    </a>
+                      <span class='sr-only'>Open user menu</span>
+                      <img
+                        class='h-8 w-8 rounded-full'
+                        src={state.auth.user.imageUrl}
+                        alt=''
+                      />
+                    </button>
                   </div>
-                </Transition>
-              </div>
+                  <Transition
+                    show={isuseropen}
+                    enter='transition ease-out duration-100'
+                    enterFrom='transform opacity-0 scale-95'
+                    enterTo='transform opacity-100 scale-100'
+                    leave='transition ease-in duration-75'
+                    leaveFrom='transform opacity-100 scale-100'
+                    leaveTo='transform opacity-0 scale-95'
+                  >
+                    <div
+                      class='origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 z-20'
+                      role='menu'
+                      aria-orientation='vertical'
+                      aria-labelledby='user-menu'
+                    >
+                      <a
+                        href='#'
+                        class='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
+                        role='menuitem'
+                        onClick={() => dispatch(logoutUser())}
+                      >
+                        Sign out
+                      </a>
+                    </div>
+                  </Transition>
+                </div>
+              ) : (
+                <Login />
+              )}
             </div>
           </div>
         </div>

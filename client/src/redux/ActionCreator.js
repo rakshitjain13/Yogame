@@ -32,6 +32,7 @@ export const loginUser = (profileObj) => (dispatch, Ownprops) => {
         var creds = {
           user_id: response.user._id,
           username: response.user.username,
+          imageUrl: response.user.imageUrl,
         };
         var isUsername;
         if (creds.username) {
