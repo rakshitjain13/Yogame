@@ -13,5 +13,9 @@ var User = new Schema({
     type: String,
     default: '',
   },
+  imageUrl: {
+    type: String,
+    default: '',
+  },
 });
 module.exports = mongoose.model('User', User);

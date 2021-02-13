@@ -21,6 +21,7 @@ router.post('/signin', cors.corsWithOptions, (req, res, next) => {
         user = new User({ googleId: profile.googleId });
         user.username = profile.name;
         user.email = profile.email;
+        user.imageUrl = profile.imageUrl;
         user
           .save()
           .then((user) => {
