@@ -7,7 +7,7 @@ import StopRunning from "../images/Stop_running.png";
 import "./practice.css";
 function Practice() {
 	const [starting, Setstarting] = useState(false);
-	const [doingright, Setdoingright] = useState(false);
+	const [doingright, Setdoingright] = useState(true);
 	const [classifying, Setclassifying] = useState(false);
 	const IntialCompleted=()=>{
 		Setclassifying(true);
