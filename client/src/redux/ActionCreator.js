@@ -2,12 +2,11 @@ import * as ActionTypes from './ActionTypes';
 import { baseUrl } from '../shared/baseUrl';
 import axios from 'axios';
 
-export const receiveLogin = (response, creds, isUsername) => {
+export const receiveLogin = (response, creds) => {
   return {
     type: ActionTypes.LOGIN_SUCCESS,
     token: response.token,
-    creds,
-    isUsername,
+    creds
   };
 };
 
@@ -34,16 +33,10 @@ export const loginUser = (profileObj) => (dispatch, Ownprops) => {
           username: response.user.username,
           imageUrl: response.user.imageUrl,
         };
-        var isUsername;
-        if (creds.username) {
-          isUsername = true;
-        } else {
-          isUsername = false;
-        }
         localStorage.setItem('token', response.token);
         localStorage.setItem('creds', JSON.stringify(creds));
         // Dispatch the success action
-        dispatch(receiveLogin(response, creds, isUsername));
+        dispatch(receiveLogin(response, creds));
       } else {
         var error = new Error('Error ' + response.status);
         error.response = response;
@@ -69,4 +62,15 @@ export const logoutUser = () => (dispatch) => {
   localStorage.removeItem('token');
   localStorage.removeItem('creds');
   dispatch(receiveLogout());
+};
+
+export const DoingRight = () => {
+	return {
+		type: ActionTypes.DOING_RIGHT,
+	};
+};
+export const DoingWrong = () => {
+	return {
+		type: ActionTypes.DOING_WRONG,
+	};
 };

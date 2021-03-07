@@ -1,0 +1,60 @@
+/* Sets the containers height and width */
+.base-timer {
+  position: relative;
+  height: 100px;
+  width: 100px;
+}
+
+/* Removes SVG styling that would hide the time label */
+.base-timer__circle {
+  fill: none;
+  stroke: none;
+}
+
+/* The SVG path that displays the timer's progress */
+.base-timer__path-elapsed {
+  stroke-width: 7px;
+  stroke: grey;
+}
+.base-timer__label {
+  position: absolute;
+  
+  /* Size should match the parent container */
+  width: 100px;
+  height: 100px;
+  
+  /* Keep the label aligned to the top */
+  top: 0;
+  
+  /* Create a flexible box that centers content vertically and horizontally */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Sort of an arbitrary number; adjust to your liking */
+  font-size: 32px;
+  font-weight: bold;
+  
+}
+.base-timer__path-remaining {
+  /* Just as thick as the original ring */
+  stroke-width: 7px;
+
+  /* Rounds the line endings to create a seamless circle */
+  stroke-linecap: round;
+
+  /* Makes sure the animation starts at the top of the circle */
+  transform: rotate(90deg);
+  transform-origin: center;
+
+  /* One second aligns with the speed of the countdown timer */
+  transition: 1s linear all;
+
+  /* Allows the ring to change color when the color value updates */
+  stroke: #424874;
+}
+
+.base-timer__svg {
+  /* Flips the svg and makes the animation to move left-to-right */
+  transform: scaleX(-1);
+}

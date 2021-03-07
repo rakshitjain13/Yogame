@@ -54,30 +54,28 @@ function Collect() {
     }
   };
   const detection = () => {
-    const poseNet = ml5.poseNet(webcamRef.current.video, () => {
-      console.log('Modal Loaded');
 
-      const poseNet = ml5.poseNet(webcamRef.current.video, () => {
-        console.log('Modal Loaded');
+      const poseNet = ml5.poseNet(
+				webcamRef.current.video,
+				() => {
+					console.log("Modal Loaded");
 
-        // Set video width
-        webcamRef.current.video.width = videoWidth;
-        webcamRef.current.video.height = videoHeight;
-        canvasRef.current.width = videoWidth;
-        canvasRef.current.height = videoHeight;
+					const videoWidth = webcamRef.current.video.videoWidth;
+					const videoHeight = webcamRef.current.video.videoHeight;
 
-        // Set video width
-        webcamRef.current.video.width = videoWidth;
-        webcamRef.current.video.height = videoHeight;
-        canvasRef.current.width = videoWidth;
-        canvasRef.current.height = videoHeight;
-        poseNet.on('pose', (poses) => {
-          if (poses.length > 0) {
-            Setposes(poses);
-          }
-        });
-      });
-    });
+					// Set video width
+					webcamRef.current.video.width = videoWidth;
+					webcamRef.current.video.height = videoHeight;
+					canvasRef.current.width = videoWidth;
+					canvasRef.current.height = videoHeight;
+
+					poseNet.on("pose", (poses) => {
+						if (poses.length > 0) {
+							Setposes(poses);
+						}
+					});
+				}
+			);
   };
   useEffect(() => {
     brain.current = ml5.neuralNetwork(options);
