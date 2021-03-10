@@ -7,6 +7,7 @@ import { useState } from "react";
 function Detection({ Setmodelloading, Setdoingright, Classifying, whatdoing }) {
 	const webcamRef = useRef(null);
 	const canvasRef = useRef(null);
+	const poseNet=useRef(null);
 	const [Allposes, Setposes] = useState(true);
 	const brain = useRef(null);
 
@@ -23,7 +24,7 @@ function Detection({ Setmodelloading, Setdoingright, Classifying, whatdoing }) {
 		weights: "./model/model.weights.bin",
 	};
 	const detect = () => {
-		const poseNet = ml5.poseNet(webcamRef.current.video, () => {
+		 poseNet.current = ml5.poseNet(webcamRef.current.video, () => {
 			console.log("Modal Loaded");
 			brain.current.load(modelInfo, () => {
 				console.log("pose classification ready!");
@@ -38,10 +39,11 @@ function Detection({ Setmodelloading, Setdoingright, Classifying, whatdoing }) {
 			webcamRef.current.video.height = videoHeight;
 			canvasRef.current.width = videoWidth;
 			canvasRef.current.height = videoHeight;
-			poseNet.on("pose", (poses) => {
+			poseNet.current.on("pose", (poses) => {
 				if (poses.length > 0) {
 					if (Classifying()) classifyPose(poses[0].pose);
-					const ctx = canvasRef.current.getContext("2d");
+					if (canvasRef.current){ 
+						const ctx = canvasRef.current.getContext("2d");
 					ctx.clearRect(
 						0,
 						0,
@@ -51,6 +53,7 @@ function Detection({ Setmodelloading, Setdoingright, Classifying, whatdoing }) {
 					requestAnimationFrame(() => {
 						drawRect(poses, ctx);
 					});
+				}
 				}
 			});
 		});
@@ -70,7 +73,7 @@ function Detection({ Setmodelloading, Setdoingright, Classifying, whatdoing }) {
 				if (whatdoing()) Setdoingright(false);
 			} else if (results[0].label==="Right" && results[0].confidence > 0.8) {
 				if (!whatdoing()) Setdoingright(true);
-				console.log(results[0].label, results[0].confidence);
+				// console.log(results[0].label, results[0].confidence);
 			} else {
 				if (whatdoing) Setdoingright(false);
 			}
@@ -80,6 +83,11 @@ function Detection({ Setmodelloading, Setdoingright, Classifying, whatdoing }) {
 	useEffect(() => {
 		brain.current = ml5.neuralNetwork(options);
 		detect();
+		return ()=>{
+			poseNet.current.removeListener("pose", (err)=>{
+				console.log("Removed");
+			});
+		}
 	}, [Classifying()]);
 	return (
 		<>
