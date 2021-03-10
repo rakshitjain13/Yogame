@@ -6,14 +6,20 @@ var logger = require('morgan');
 var passport = require('passport');
 var mongoose = require('mongoose');
 const cors = require('cors');
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+};
 require('./authenticate');
 var config = require('./config');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var googleRouter = require('./routes/google');
-
+var updateRouter = require('./routes/updatelevel');
 var app = express();
+app.use(cors(corsOptions));
 const url = config.mongoURL;
 const connect = mongoose.connect(url, {
   useNewUrlParser: true,
@@ -31,7 +37,6 @@ let currentUser;
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-app.use(cors());
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -43,7 +48,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/google', googleRouter);
-
+app.use('/updatelevel', updateRouter);
 app.use(passport.initialize());
 
 // catch 404 and forward to error handler

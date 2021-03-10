@@ -17,5 +17,9 @@ var User = new Schema({
     type: String,
     default: '',
   },
+  level: {
+    type: Number,
+    default: 0,
+  },
 });
 module.exports = mongoose.model('User', User);
