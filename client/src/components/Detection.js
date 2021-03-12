@@ -1,27 +1,26 @@
-import { useEffect, useRef } from "react";
-import Webcam from "react-webcam";
-import * as ml5 from "ml5";
-import "./detection.css";
-import { useState } from "react";
+import { useEffect, useRef } from 'react';
+import Webcam from 'react-webcam';
+import * as ml5 from 'ml5';
+import {baseUrl} from '../shared/baseUrl';
+import './detection.css';
 
 function Detection({ Setmodelloading, Setdoingright, Classifying, whatdoing }) {
 	const webcamRef = useRef(null);
 	const canvasRef = useRef(null);
 	const poseNet=useRef(null);
-	const [Allposes, Setposes] = useState(true);
 	const brain = useRef(null);
 
-	let options = {
-		inputs: 34,
-		outputs: ["label"],
-		task: "classification",
-		debug: true,
-	};
+  let options = {
+    inputs: 34,
+    outputs: ['label'],
+    task: 'classification',
+    debug: true,
+  };
 
 	const modelInfo = {
-		model: "./model/model.json",
-		metadata: "./model/model_meta.json",
-		weights: "./model/model.weights.bin",
+		model: `${baseUrl}data/models/model.json`,
+		metadata: `${baseUrl}data/models/model_meta.json`,
+		weights: `${baseUrl}data/models/model.weights.bin`,
 	};
 	const detect = () => {
 		 poseNet.current = ml5.poseNet(webcamRef.current.video, () => {
@@ -31,8 +30,8 @@ function Detection({ Setmodelloading, Setdoingright, Classifying, whatdoing }) {
 			});
 			Setmodelloading(false);
 
-			const videoWidth = webcamRef.current.video.videoWidth;
-			const videoHeight = webcamRef.current.video.videoHeight;
+      const videoWidth = webcamRef.current.video.videoWidth;
+      const videoHeight = webcamRef.current.video.videoHeight;
 
 			// Set video width
 			webcamRef.current.video.width = videoWidth;
@@ -88,6 +87,7 @@ function Detection({ Setmodelloading, Setdoingright, Classifying, whatdoing }) {
 				console.log("Removed");
 			});
 		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [Classifying()]);
 	return (
 		<>
@@ -102,32 +102,32 @@ function Detection({ Setmodelloading, Setdoingright, Classifying, whatdoing }) {
 }
 
 const drawRect = (poses, ctx) => {
-	// ctx.drawImage(webcamRef.current.video, 0, 0);
-	const pose = poses[0].pose;
-	const skeleton = poses[0].skeleton;
-	for (let i = 0; i < pose.keypoints.length; i++) {
-		let x = pose.keypoints[i].position.x;
-		let y = pose.keypoints[i].position.y;
-		ctx.fillStyle = " #39ff14";
-		ctx.beginPath();
-		ctx.arc(x, y, 6, 0, 2 * Math.PI);
-		ctx.fill();
-		ctx.fillStyle = "#fff";
-		ctx.beginPath();
-		ctx.arc(x, y, 4, 0, 2 * Math.PI);
-		ctx.fill();
-	}
-	for (let j = 0; j < poses[0].skeleton.length; j++) {
-		let partA = skeleton[j][0];
-		let partB = skeleton[j][1];
-		ctx.beginPath();
-		ctx.moveTo(partA.position.x, partA.position.y);
-		ctx.lineTo(partB.position.x, partB.position.y);
-		ctx.strokeStyle = " #39ff14";
+  // ctx.drawImage(webcamRef.current.video, 0, 0);
+  const pose = poses[0].pose;
+  const skeleton = poses[0].skeleton;
+  for (let i = 0; i < pose.keypoints.length; i++) {
+    let x = pose.keypoints[i].position.x;
+    let y = pose.keypoints[i].position.y;
+    ctx.fillStyle = ' #39ff14';
+    ctx.beginPath();
+    ctx.arc(x, y, 6, 0, 2 * Math.PI);
+    ctx.fill();
+    ctx.fillStyle = '#fff';
+    ctx.beginPath();
+    ctx.arc(x, y, 4, 0, 2 * Math.PI);
+    ctx.fill();
+  }
+  for (let j = 0; j < poses[0].skeleton.length; j++) {
+    let partA = skeleton[j][0];
+    let partB = skeleton[j][1];
+    ctx.beginPath();
+    ctx.moveTo(partA.position.x, partA.position.y);
+    ctx.lineTo(partB.position.x, partB.position.y);
+    ctx.strokeStyle = ' #39ff14';
 
-		ctx.stroke();
-	}
-	// ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+    ctx.stroke();
+  }
+  // ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
 };
 
 export default Detection;

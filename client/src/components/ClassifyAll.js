@@ -9,13 +9,17 @@ import "./practice.css";
 import Detection from "./Detection";
 import Clock from "./Clock";
 import NextButton from "./NextButton";
-function ClassifyAll({type}) {
+import { updateLevel } from "../redux/ActionCreator";
+import { useDispatch, useSelector } from "react-redux";
+function ClassifyAll({type,level}) {
 	const [starting, Setstarting] = useState(false);
 	 const [modelloading, Setmodelloading] = useState(true);
 	const [doingright, Setdoingright] = useState(false);
 	const [classifying, Setclassifying] = useState(false);
-	const [completed, Setcompleted] = useState(true);
-	const [next, Setnext] = useState(true);
+	const [completed, Setcompleted] = useState(false);
+	const [next, Setnext] = useState(false);
+	 const dispatch = useDispatch();
+	const state = useSelector((state) => state);
 
 
 	const IntialCompleted=()=>{
@@ -29,8 +33,8 @@ function ClassifyAll({type}) {
 	}
 	const Finished=()=>{
 		Setcompleted(true);
-		
-		
+		Setclassifying(false);
+		 dispatch(updateLevel(state.auth.user));
 	}
 
 	const Startbutton=()=>{
@@ -62,15 +66,17 @@ function ClassifyAll({type}) {
 				<Confetti
 					width={window.innerWidth}
 					height={window.innerHeight}
-					numberOfPieces={200}
+					numberOfPieces={100}
 					recycle={false}
+					onConfettiComplete={()=>(Setnext(true))}
 				/>
 			);
-			Setnext(true);
-		}if(next){
-			return(<div>
-				<NextButton type={type}/>
-			</div>);
+		}else if(next){
+			return (
+				<div>
+					<NextButton type={type}  />
+				</div>
+			);
 		} 
 		else {
 			return null;

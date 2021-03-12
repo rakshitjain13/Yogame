@@ -33,7 +33,6 @@ export const Auth = (
       return {
         ...state,
         isLoading: false,
-        isUsername: true,
         isAuthenticated: false,
         errMess: action.message,
       };
@@ -47,6 +46,12 @@ export const Auth = (
         token: '',
         user: null,
       };
+    case ActionTypes.LEVEL_UPDATED:
+      return {
+        ...state,
+        user: action.user,
+      };
+
     default:
       return state;
   }

@@ -11,7 +11,7 @@ export const ConfigureStore = () => {
   const store = createStore(
     combineReducers({
       auth: Auth,
-      pose:Pose
+      pose: Pose,
     }),
     applyMiddleware(thunk, logger)
   );

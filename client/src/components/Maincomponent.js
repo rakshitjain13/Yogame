@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import Header from './Header';
 import Home from './Home';
@@ -7,14 +7,12 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import ClassifyAll from './ClassifyAll';
 import Login from './loginButton';
 import Clock from './Clock';
-
-
-
+import LeaderBoard from './Leaderboard';
 function Maincomponent() {
 	const state= useSelector((state) => state);
 	const Playpage=()=>{
 		if(state.auth.isAuthenticated)
-		 return <ClassifyAll type="Notpractice" level={1}/>;
+		 return <ClassifyAll type="Notpractice" level={state.auth.level}/>;
 		else
 		 return(
 			 <div className="h-full w-full flex justify-center items-center">

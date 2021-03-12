@@ -1,6 +1,10 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import {updateLevel }from '../redux/ActionCreator';
 
-import { Redirect,Link } from 'react-router-dom';
 function NextButton({type}) {
+      const dispatch = useDispatch();
+      const state = useSelector((state) => state);
     const nextlevel=()=>{
         window.location.href="http://localhost:3000/";
     }

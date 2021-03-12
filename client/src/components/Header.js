@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { Transition } from '@headlessui/react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -97,12 +98,12 @@ function Header({state}) {
 									>
 										Practice
 									</Link>
-									<a
-										href="#"
+									<Link
+										to="/play"
 										className=" text-secondary-dark font-bold px-3 py-2  text-xl font-jost hover:bg-secondary-dark hover:text-primary-light rounded-3xl transition ease-in-out duration-300"
 									>
 										Play
-									</a>
+									</Link>
 									<a
 										href="#"
 										className=" text-secondary-dark font-bold px-3 py-2  text-xl font-jost hover:bg-secondary-dark hover:text-primary-light rounded-3xl transition ease-in-out duration-300"
@@ -113,7 +114,7 @@ function Header({state}) {
 							</div>
 						</div>
 						<div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-							{state.auth.isAuthenticated == true ? (
+							{state.auth.isAuthenticated === true ? (
 								<div className="ml-3 relative">
 									<div>
 										<button

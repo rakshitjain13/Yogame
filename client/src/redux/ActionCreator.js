@@ -6,7 +6,7 @@ export const receiveLogin = (response, creds) => {
   return {
     type: ActionTypes.LOGIN_SUCCESS,
     token: response.token,
-    creds
+    creds,
   };
 };
 
@@ -32,6 +32,7 @@ export const loginUser = (profileObj) => (dispatch, Ownprops) => {
           user_id: response.user._id,
           username: response.user.username,
           imageUrl: response.user.imageUrl,
+          level: response.user.level,
         };
         localStorage.setItem('token', response.token);
         localStorage.setItem('creds', JSON.stringify(creds));
@@ -65,12 +66,30 @@ export const logoutUser = () => (dispatch) => {
 };
 
 export const DoingRight = () => {
-	return {
-		type: ActionTypes.DOING_RIGHT,
-	};
+  return {
+    type: ActionTypes.DOING_RIGHT,
+  };
 };
 export const DoingWrong = () => {
-	return {
-		type: ActionTypes.DOING_WRONG,
-	};
+  return {
+    type: ActionTypes.DOING_WRONG,
+  };
+};
+
+export const updateLevel = (user) => (dispatch) => {
+  return axios
+    .post(baseUrl + 'updatelevel', { id: user.user_id, level: user.level+1 })
+    .then((response) => {
+      console.log(response);
+      user.level=user.level+1;
+      dispatch(levelUpdated(user));
+    })
+    .catch((error) => console.log(error));
+};
+
+export const levelUpdated = (user) => {
+  return {
+    type: ActionTypes.LEVEL_UPDATED,
+    user,
+  };
 };
