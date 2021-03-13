@@ -43,12 +43,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use(express.static(path.join(__dirname, 'public')));
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/google', googleRouter);
 app.use('/updatelevel', updateRouter);
+app.use("/data", express.static(path.join(__dirname, "public")));
 app.use(passport.initialize());
 
 // catch 404 and forward to error handler

@@ -76,19 +76,20 @@ export const DoingWrong = () => {
   };
 };
 
-export const updateLevel = (id, level) => (dispatch) => {
+export const updateLevel = (user) => (dispatch) => {
   return axios
-    .post(baseUrl + 'updatelevel', { id: id, level: level })
+    .post(baseUrl + 'updatelevel', { id: user.user_id, level: user.level+1 })
     .then((response) => {
       console.log(response);
-      dispatch(levelUpdated(level));
+      user.level=user.level+1;
+      dispatch(levelUpdated(user));
     })
     .catch((error) => console.log(error));
 };
 
-export const levelUpdated = (level) => {
+export const levelUpdated = (user) => {
   return {
     type: ActionTypes.LEVEL_UPDATED,
-    level,
+    user,
   };
 };
