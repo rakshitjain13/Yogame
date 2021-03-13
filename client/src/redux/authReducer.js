@@ -9,6 +9,7 @@ export const Auth = (
       ? JSON.parse(localStorage.getItem('creds'))
       : null,
     errMess: null,
+    level: localStorage.getItem('level') ? localStorage.getItem('level') : 0,
   },
   action
 ) => {
@@ -49,7 +50,7 @@ export const Auth = (
     case ActionTypes.LEVEL_UPDATED:
       return {
         ...state,
-        user: action.user,
+        level: action.newlevel,
       };
 
     default:
