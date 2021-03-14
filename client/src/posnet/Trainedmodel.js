@@ -10,9 +10,9 @@ let options = {
 };
 
 const modelInfo = {
-	model: "./model/model.json",
-	metadata: "./model/model_meta.json",
-	weights: "./model/model.weights.bin",
+  model: './model/finalmodel.json',
+  metadata: './model/finalmodel_meta.json',
+  weights: './model/finalmodel.weights.bin',
 };
 function Trainedmodel() {
   const webcamRef = useRef(null);

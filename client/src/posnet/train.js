@@ -7,7 +7,8 @@ let options = {
 };
 const brain = ml5.neuralNetwork(options);
 export const testfunction = () => {
-  brain.loadData('./namaste.json', () => {
+  console.log('training');
+  brain.loadData('http://localhost:5000/data/finalmodel.json', () => {
     brain.normalizeData();
     brain.train({ epochs: 50 }, () => {
       console.log('model trained');

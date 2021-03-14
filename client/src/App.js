@@ -12,24 +12,25 @@ import Collect from './posnet/Collect';
 import { testfunction } from './posnet/train';
 import Trainedmodel from './posnet/Trainedmodel';
 
-
 const store = ConfigureStore();
-// testfunction();
+//testfunction();
 class App extends React.Component {
   render() {
     return (
-		// <>
-		// {/* <Collect/> */}
-		// <Trainedmodel/>
-		// </>
-			<BrowserRouter>
-			  <Provider store={store}>
-			    <div className=''>
-			      <Maincomponent />
-			    </div>
-			  </Provider>
-			</BrowserRouter>
-		);
+      // <>
+      /*<div>
+        <Collect />
+      </div>*/
+      <Trainedmodel />
+      // </>
+      /*<BrowserRouter>
+        <Provider store={store}>
+          <div className=''>
+            <Maincomponent />
+          </div>
+        </Provider>
+      </BrowserRouter>*/
+    );
   }
 }
 
