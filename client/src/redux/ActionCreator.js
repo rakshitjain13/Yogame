@@ -76,9 +76,10 @@ export const DoingWrong = () => {
     type: ActionTypes.DOING_WRONG,
   };
 };
-export const LevelUpdated = (newlevel) => {
+export const LevelUpdated = () => {
+  const state=JSON.parse(localStorage.getItem('creds'))
   return {
     type: ActionTypes.LEVEL_UPDATED,
-    newlevel,
+    state,
   };
 };

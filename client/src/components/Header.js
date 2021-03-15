@@ -73,15 +73,15 @@ function Header({ state }) {
             <div className='flex-1 flex items-center justify-center sm:items-stretch sm:justify-start'>
               <Link to='/' className='flex-shrink-0 flex items-center'>
                 <img
-                  className='block lg:hidden h-8 w-auto'
+                  className='block  h-8 w-auto'
                   src='https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg'
                   alt='Workflow'
                 />
-                <img
+                {/* <img
                   className='hidden lg:block h-8 w-auto'
                   src='https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg'
                   alt='Workflow'
-                />
+                /> */}
               </Link>
               <div className='hidden sm:block sm:ml-6'>
                 <div className='flex space-x-4'>
@@ -104,12 +104,12 @@ function Header({ state }) {
                   >
                     Play
                   </Link>
-                  <a
-                    href='/leaderboard'
+                  <Link
+                    to='/leaderboard'
                     className=' text-secondary-dark font-bold px-3 py-2  text-xl font-jost hover:bg-secondary-dark hover:text-primary-light rounded-3xl transition ease-in-out duration-300'
                   >
                     LeaderBoard
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -146,14 +146,13 @@ function Header({ state }) {
                       aria-orientation='vertical'
                       aria-labelledby='user-menu'
                     >
-                      <a
-                        href='#'
+                      <div
                         className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
                         role='menuitem'
-                        onClick={() => dispatch(logoutUser())}
+                        onClick={() =>{  Setuseropen(!isuseropen);dispatch(logoutUser())}}
                       >
                         Sign out
-                      </a>
+                      </div>
                     </div>
                   </Transition>
                 </div>
@@ -194,10 +193,10 @@ function Header({ state }) {
                 Play
               </Link>
               <Link
-                to='/'
+                to='/leaderboard'
                 className='text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'
               >
-                Calendar
+                Leaderboard
               </Link>
             </div>
           </div>

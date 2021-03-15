@@ -21,7 +21,7 @@ function ClassifyAll({ type, level }) {
   const [classifying, Setclassifying] = useState(false);
   const [completed, Setcompleted] = useState(false);
   const [next, Setnext] = useState(false);
-  const dispatch = useDispatch();
+
   const state = useSelector((state) => state);
 
   const IntialCompleted = () => {
@@ -46,18 +46,22 @@ function ClassifyAll({ type, level }) {
         }
       )
       .then((response) => {
-        console.log(response);
         var newlevel = response.data.level;
         localStorage.setItem('level', newlevel);
         console.log(localStorage.getItem('level'));
-        dispatch(LevelUpdated(newlevel));
+        state.auth.level = newlevel;
+          localStorage.setItem("creds", JSON.stringify(state));
+        console.log(JSON.parse(localStorage.getItem("creds")));
+
+
       })
       .catch((error) => console.log(error));
   };
   const Finished = () => {
+     if(type!=="practice")
+    updatelevel(state.auth.user);
     Setcompleted(true);
     Setclassifying(false);
-    updatelevel(state.auth.user);
   };
 
   const Startbutton = () => {
@@ -117,9 +121,9 @@ function ClassifyAll({ type, level }) {
     return classifying;
   };
   return (
-    <div className='flex flex-col w-full h-full bg-primary-light'>
+    <div className='flex flex-col w-full h-full bg-primary-light overflow-hidden overflow-y-hidden'>
       {modelloading && (
-        <div className='absolute w-full h-full bg-primary-light z-50 overflow-hidden'>
+        <div className='absolute w-full bg-primary-light z-50 overflow-hidden ' style={{'height':'90vh'}}>
           <div className='flex flex-col justify-center items-center h-full'>
             <Loader
               type='Circles'
