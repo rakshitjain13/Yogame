@@ -10,16 +10,14 @@ let options = {
 };
 
 const modelInfo = {
-	model: "./model/model.json",
-	metadata: "./model/model_meta.json",
-	weights: "./model/model.weights.bin",
+  model: './model/finalmodel.json',
+  metadata: './model/finalmodel_meta.json',
+  weights: './model/finalmodel.weights.bin',
 };
 function Trainedmodel() {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
   const [poses, Setposes] = useState([]);
-  const [swap, Setswap] = useState(true);
-  const [facing, Setfacing] = useState(false);
   const [resultspose, Setresultspose] = useState([]);
   const brain = useRef(null);
   const drawRect = (poses, ctx) => {
@@ -106,9 +104,9 @@ function Trainedmodel() {
       drawRect(poses, ctx);
     });
   }
-  const videoConstraints = {
-    facingMode: facing ? { exact: 'environment' } : 'user',
-  };
+  // const videoConstraints = {
+  //   facingMode: facing ? { exact: 'environment' } : 'user',
+  // };
   // if (targetLabel != "") {
   // 			console.log(targetLabel);
   // 		}
@@ -117,12 +115,12 @@ function Trainedmodel() {
     <div>
       <div className='h-screen overflow-hidden'>
         <Webcam
-          videoConstraints={videoConstraints}
+        
           ref={webcamRef}
           src='youtube.com/watch?v=t4EFxQDhA8A'
           muted={true}
           style={{
-            transform: swap && 'scaleX(-1)',
+            transform: 'scaleX(-1)',
             position: 'absolute',
             marginLeft: 'auto',
             marginRight: 'auto',
@@ -135,7 +133,7 @@ function Trainedmodel() {
         <canvas
           ref={canvasRef}
           style={{
-            transform: swap && 'scaleX(-1)',
+            transform: 'scaleX(-1)',
             position: 'absolute',
             marginLeft: 'auto',
             marginRight: 'auto',

@@ -6,8 +6,8 @@ import Learn from './Learn';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import ClassifyAll from './ClassifyAll';
 import Login from './loginButton';
-import Clock from './Clock';
 import LeaderBoard from './Leaderboard';
+import Collect from '../posnet/Collect';
 function Maincomponent() {
   const state = useSelector((state) => state);
 
@@ -34,6 +34,7 @@ function Maincomponent() {
         />
         <Route exact path='/play' component={Playpage} />
         <Route exact path='/leaderboard' component={LeaderBoard} />
+        <Route exact path='/train' component={Collect}></Route>
         <Redirect to='/' />
       </Switch>
     </div>

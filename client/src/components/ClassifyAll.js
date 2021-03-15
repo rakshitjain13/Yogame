@@ -10,9 +10,8 @@ import Detection from './Detection';
 import Clock from './Clock';
 import NextButton from './NextButton';
 import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
+import {  useSelector } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
-import { LevelUpdated } from '../redux/ActionCreator';
 
 function ClassifyAll({ type, level }) {
   const [starting, Setstarting] = useState(false);
@@ -23,7 +22,9 @@ function ClassifyAll({ type, level }) {
   const [next, Setnext] = useState(false);
 
   const state = useSelector((state) => state);
-
+  const levelis = type !=='practice'? state.level : 1;
+  const levels = ["tadasana", "vrikshasana", "Kursiasana", "Virabhadrasana"];
+  const imageurl=`${baseUrl}data/images/${levels[levelis-1]}.png`
   const IntialCompleted = () => {
     Setclassifying(true);
   };
@@ -146,6 +147,7 @@ function ClassifyAll({ type, level }) {
             Setdoingright={Modelcheck}
             Classifying={Classifying}
             whatdoing={whatdoing}
+            asana={levels[levelis-1]}
           />
         </div>
         <div className='w-full lg:w-1/2 h-full relative  '>
@@ -153,7 +155,7 @@ function ClassifyAll({ type, level }) {
             Perform same as shown below
           </div>
           <div className='flex justify-center '>
-            <img src={Namaste} alt='...' width='400' height='400' />
+            <img src={imageurl} alt='...' width='400' height='400' />
           </div>
           <img
             src={keepit}
