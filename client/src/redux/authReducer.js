@@ -50,7 +50,7 @@ export const Auth = (
     case ActionTypes.LEVEL_UPDATED:
       return {
         ...state,
-        level: action.newlevel,
+        state: action.state,
       };
 
     default:

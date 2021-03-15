@@ -6,7 +6,6 @@ import Learn from './Learn';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import ClassifyAll from './ClassifyAll';
 import Login from './loginButton';
-import Clock from './Clock';
 import LeaderBoard from './Leaderboard';
 import Collect from '../posnet/Collect';
 function Maincomponent() {
@@ -17,7 +16,7 @@ function Maincomponent() {
       return <ClassifyAll type='Notpractice' level={state.auth.level} />;
     else
       return (
-        <div className='h-full w-full flex justify-center items-center'>
+        <div className=' w-full flex  justify-center items-center' style={{'marginTop':'40vh'}}>
           <Login />
         </div>
       );
@@ -34,13 +33,6 @@ function Maincomponent() {
           component={() => <ClassifyAll type='practice' />}
         />
         <Route exact path='/play' component={Playpage} />
-        <Route
-          exact
-          path='/clock'
-          component={() => (
-            <Clock total={20} onComplete={() => {}} pause={() => false} />
-          )}
-        />
         <Route exact path='/leaderboard' component={LeaderBoard} />
         <Route exact path='/train' component={Collect}></Route>
         <Redirect to='/' />

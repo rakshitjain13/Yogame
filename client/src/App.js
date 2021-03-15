@@ -8,12 +8,9 @@ import { ConfigureStore } from './redux/configureStore';
 import './App.css';
 
 import Maincomponent from './components/Maincomponent';
-import Collect from './posnet/Collect';
-import { testfunction } from './posnet/train';
-import Trainedmodel from './posnet/Trainedmodel';
 
 const store = ConfigureStore();
-//testfunction();
+
 class App extends React.Component {
   render() {
     return (

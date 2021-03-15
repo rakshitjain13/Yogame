@@ -1,13 +1,13 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import {updateLevel }from '../redux/ActionCreator';
+import {LevelUpdated }from '../redux/ActionCreator';
 
 function NextButton({type}) {
       const dispatch = useDispatch();
-      const state = useSelector((state) => state);
+
     const nextlevel=()=>{
-        window.location.href="http://localhost:3000/";
-    }
+			 dispatch(LevelUpdated());
+		}
     if(type==="practice"){
     return (
 			<Link to='/play' className="bg-primary relative p-2 mb-8 rounded-lg shadow-xl  font-jost text-lg cursor-pointer hover:bg-secondary-dark hover:text-primary transition antialiased tracking-wide ease-in-out duration-100" >
