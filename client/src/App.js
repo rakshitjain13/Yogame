@@ -21,15 +21,15 @@ class App extends React.Component {
       /*<div>
         <Collect />
       </div>*/
-      <Trainedmodel />
+      //<Trainedmodel />
       // </>
-      /*<BrowserRouter>
+      <BrowserRouter>
         <Provider store={store}>
           <div className=''>
             <Maincomponent />
           </div>
         </Provider>
-      </BrowserRouter>*/
+      </BrowserRouter>
     );
   }
 }
