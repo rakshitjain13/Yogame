@@ -1,1 +1,1 @@
-export const baseUrl = 'https://yogaml.herokuapp.com/';
+export const baseUrl = 'http://localhost:5000/';

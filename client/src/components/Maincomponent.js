@@ -8,6 +8,7 @@ import ClassifyAll from './ClassifyAll';
 import Login from './loginButton';
 import LeaderBoard from './Leaderboard';
 import Collect from '../posnet/Collect';
+import Footer from './Footer';
 function Maincomponent() {
   const state = useSelector((state) => state);
 
@@ -16,7 +17,7 @@ function Maincomponent() {
       return <ClassifyAll type='Notpractice' level={state.auth.level} />;
     else
       return (
-        <div className=' w-full flex  justify-center items-center' style={{'marginTop':'40vh'}}>
+        <div className=' w-full flex  justify-center items-center' style={{'min-height':'91vh'}}>
           <Login />
         </div>
       );
@@ -37,6 +38,7 @@ function Maincomponent() {
         <Route exact path='/train' component={Collect}></Route>
         <Redirect to='/' />
       </Switch>
+      <Footer/>
     </div>
   );
 }

@@ -5,8 +5,8 @@ import classify from '../images/classify.jpg';
 import './learn.css';
 function Learn() {
   return (
-		<body>
-			<div className="container overflow-hidden">
+		<body className="overflow-hidden">
+			<div className="container ">
 				<div className="font-jost text-secondary-dark text-3xl lg:text-4xl font-semibold p-11 border-b border-gray-200 flex justify-center">
 					<h2>All you need to do !</h2>
 				</div>

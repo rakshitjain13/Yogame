@@ -17,6 +17,7 @@
     "@testing-library/user-event": "^12.1.10",
     "autoprefixer": "9",
     "axios": "^0.21.1",
+    "dotenv": "^8.2.0",
     "ml5": "^0.6.0",
     "postcss": "7",
     "react": "^17.0.1",
@@ -62,6 +63,5 @@
       "last 1 safari version"
     ],
     "proxy": "http://localhost:5000"
-  
   }
 }

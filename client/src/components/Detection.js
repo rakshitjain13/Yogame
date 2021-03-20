@@ -85,8 +85,10 @@ function Detection({
 			//console.log(results[0].confidence);
 		});
 	};
+		useEffect(() => {
+			brain.current = ml5.neuralNetwork(options);
+		},[]);
 	useEffect(() => {
-		brain.current = ml5.neuralNetwork(options);
 		detect();
 		return () => {
 			poseNet.current.removeListener("pose", (err) => {

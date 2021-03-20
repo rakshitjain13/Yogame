@@ -66,16 +66,7 @@ export const logoutUser = () => (dispatch) => {
   dispatch(receiveLogout());
 };
 
-export const DoingRight = () => {
-  return {
-    type: ActionTypes.DOING_RIGHT,
-  };
-};
-export const DoingWrong = () => {
-  return {
-    type: ActionTypes.DOING_WRONG,
-  };
-};
+
 export const LevelUpdated = () => {
   const state=JSON.parse(localStorage.getItem('creds'))
   return {
