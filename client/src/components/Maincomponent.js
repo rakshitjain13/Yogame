@@ -7,16 +7,16 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import ClassifyAll from './ClassifyAll';
 import Login from './loginButton';
 import LeaderBoard from './Leaderboard';
-import Collect from '../posnet/Collect';
+import Footer from './Footer';
 function Maincomponent() {
   const state = useSelector((state) => state);
 
   const Playpage = () => {
     if (state.auth.isAuthenticated)
-      return <ClassifyAll type='Notpractice' level={state.auth.level} />;
+      return <ClassifyAll type='Notpractice' level={state.auth.user.level} />;
     else
       return (
-        <div className=' w-full flex  justify-center items-center' style={{'marginTop':'40vh'}}>
+        <div className=' w-full flex  justify-center items-center' style={{'min-height':'91vh'}}>
           <Login />
         </div>
       );
@@ -34,9 +34,9 @@ function Maincomponent() {
         />
         <Route exact path='/play' component={Playpage} />
         <Route exact path='/leaderboard' component={LeaderBoard} />
-        <Route exact path='/train' component={Collect}></Route>
         <Redirect to='/' />
       </Switch>
+      <Footer/>
     </div>
   );
 }

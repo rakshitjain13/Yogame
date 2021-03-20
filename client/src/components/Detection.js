@@ -16,7 +16,7 @@ function Detection({
 	const poseNet = useRef(null);
 	const brain = useRef(null);
 
-	let options = {
+	const options = {
 		inputs: 34,
 		outputs: ["label"],
 		task: "classification",
@@ -72,28 +72,31 @@ function Detection({
 			inputs.push(y);
 		}
 		brain.current.classify(inputs, (error, results) => {
-			// console.log(results[0]);
+			
 			if (error) {
 				console.log(error);
 				if (whatdoing()) Setdoingright(false);
 			} else if (results[0].label === asana && results[0].confidence > 0.8) {
 				if (!whatdoing()) Setdoingright(true);
-				// console.log(results[0].label, results[0].confidence);
+				
 			} else {
 				if (whatdoing) Setdoingright(false);
 			}
-			//console.log(results[0].confidence);
 		});
 	};
+		useEffect(() => {
+			brain.current = ml5.neuralNetwork(options);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		}, []);
 	useEffect(() => {
-		brain.current = ml5.neuralNetwork(options);
 		detect();
 		return () => {
 			poseNet.current.removeListener("pose", (err) => {
 				console.log("Removed");
 			});
 		};
-		// eslint-disable-next-line react-hooks/exhaustive-deps
+	
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [Classifying()]);
 	return (
 		<>

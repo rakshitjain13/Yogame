@@ -2,13 +2,12 @@ import Matimage from '../images/mat.png';
 import Back from '../images/abstract-wallpaper_23-2148663179.jpg';
 import './home.css';
 import Pose from '../images/yoga-pose-estimation-removebg.png';
-import Login from '../components/loginButton';
 import { Component } from 'react';
 
 class Home extends Component {
   render() {
     return (
-      <div className='fixed w-full h-full'>
+      <div className='relative w-full h-full overflow-hidden' style={{"height":'91vh'}}>
         <img src={Back} alt='' className='back' />
         <div className='mat'>
           <img src={Matimage} className='' alt='...' />
@@ -16,7 +15,7 @@ class Home extends Component {
         <div className='pose '>
           <img src={Pose} className='' alt='...' />
         </div>
-        <div className='ml-5 lg:ml-10'>
+        <div className='ml-5 lg:ml-10 z-50 absolute'>
           <div className='font-jost text-5xl  md:text-5xl  lg:text-7xl text-primary font-bold antialiased tracking-wider mt-48  '>
             Automated
           </div>

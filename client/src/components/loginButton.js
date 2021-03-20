@@ -7,16 +7,15 @@ class Login extends Component {
 
 
   render() {
-    console.log(this.props);
     const responseGoogle = (response) => {
       var profile = response.profileObj;
-      console.log(profile);
       this.props.dispatch(loginUser(profile));
     };
+	const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
     return (
 			<div>
 				<GoogleLogin
-					clientId="121327610127-klunl6r5qs78nl6ptfl3dgtc0okl0qq6.apps.googleusercontent.com"
+					clientId={GOOGLE_CLIENT_ID}
 					render={(renderProps) => (
 						<button
 							onClick={renderProps.onClick}

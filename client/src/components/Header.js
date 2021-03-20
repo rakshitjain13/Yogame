@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Login from '../components/loginButton';
+import Logo from '../images/logo.png';
 import { logoutUser } from '../redux/ActionCreator';
 
 function Header({ state }) {
@@ -16,9 +17,9 @@ function Header({ state }) {
   return (
     <div>
       <nav className=''>
-        <div className='max-w-7xl mx-auto px-2 sm:px-6 lg:px-8'>
+        <div className='max-w-7xl mx-auto px-2 md:px-6 lg:px-8'>
           <div className='relative flex items-center justify-between h-16'>
-            <div className='absolute inset-y-0 left-0 flex items-center sm:hidden'>
+            <div className='absolute inset-y-0 left-0 flex items-center md:hidden'>
               {/* <!-- Mobile menu button--> */}
               <button
                 className='inline-flex items-center justify-center p-2 rounded-md text-secondary-dark hover:text-secondary hover:bg-secondary-dark focus:outline-none '
@@ -70,20 +71,20 @@ function Header({ state }) {
                 </svg>
               </button>
             </div>
-            <div className='flex-1 flex items-center justify-center sm:items-stretch sm:justify-start'>
+            <div className='flex-1 mr-10 flex items-center justify-center md:items-stretch md:justify-start md:mr-0'>
               <Link to='/' className='flex-shrink-0 flex items-center'>
-                <img
+                {/* <img
                   className='block  h-8 w-auto'
                   src='https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg'
                   alt='Workflow'
-                />
-                {/* <img
-                  className='hidden lg:block h-8 w-auto'
-                  src='https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg'
-                  alt='Workflow'
                 /> */}
+                <img
+                  className=' lg:block h-8 w-auto'
+                  src={Logo}
+                  alt='Workflow'
+                />
               </Link>
-              <div className='hidden sm:block sm:ml-6'>
+              <div className='hidden md:block md:ml-6'>
                 <div className='flex space-x-4'>
                   {/* <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" --> */}
                   <Link
@@ -113,7 +114,7 @@ function Header({ state }) {
                 </div>
               </div>
             </div>
-            <div className='absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0'>
+            <div className='absolute inset-y-0 right-0 flex items-center pr-2 md:static md:inset-auto md:ml-6 md:pr-0'>
               {state.auth.isAuthenticated === true ? (
                 <div className='ml-3 relative'>
                   <div>
@@ -171,7 +172,7 @@ function Header({ state }) {
           leaveFrom='transform opacity-100 scale-100'
           leaveTo='transform opacity-0 scale-50'
         >
-          <div className='block sm:hidden' onClick={() => Setnavbar(false)}>
+          <div className='block md:hidden' onClick={() => Setnavbar(false)}>
             <div className='px-2 pt-2 pb-3 space-y-1'>
               {/* <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" --> */}
               <Link

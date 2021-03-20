@@ -6,14 +6,14 @@ var logger = require('morgan');
 var passport = require('passport');
 var mongoose = require('mongoose');
 const cors = require('cors');
+require('dotenv').config();
 
 const corsOptions = {
-  origin: 'http://localhost:3000',
-  credentials: true, //access-control-allow-credentials:true
-  optionSuccessStatus: 200,
+	origin: "https://yoga-pose-game.web.app",
+	credentials: true, //access-control-allow-credentials:true
+	optionSuccessStatus: 200,
 };
 require('./authenticate');
-var config = require('./config');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -22,7 +22,7 @@ var updateRouter = require('./routes/updatelevel');
 var leaderboardRouter = require('./routes/leaderboard');
 var app = express();
 app.use(cors(corsOptions));
-const url = config.mongoURL;
+const url = process.env.mongoURL;
 const connect = mongoose.connect(url, {
   useNewUrlParser: true,
   useUnifiedTopology: true,

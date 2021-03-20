@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import Confetti from 'react-confetti';
 import Loader from 'react-loader-spinner';
 import keepit from '../images/keepit.png';
-import Namaste from '../images/namaste.png';
 import Running from '../images/WealthyNaiveHorseshoecrab-max-1mb.gif';
 import StopRunning from '../images/Stop_running.png';
 import './practice.css';
@@ -20,11 +19,20 @@ function ClassifyAll({ type, level }) {
   const [classifying, Setclassifying] = useState(false);
   const [completed, Setcompleted] = useState(false);
   const [next, Setnext] = useState(false);
-
   const state = useSelector((state) => state);
-  const levelis = type !=='practice'? state.level : 1;
-  const levels = ["tadasana", "vrikshasana", "Kursiasana", "Virabhadrasana"];
-  const imageurl=`${baseUrl}data/images/${levels[levelis-1]}.png`
+  const levelis = type !=='practice'? level : 1;
+  const levels = [
+		"tadasana",
+		"vrikshasana",
+		"Kursiasana",
+		"Virabhadrasana"
+	];
+  const youtubeUrl = [
+		"https://youtu.be/2HTvZp5rPrg",
+		"https://youtu.be/Dic293YNJI8",
+		"https://youtu.be/4xyTmX_OMiM",
+		"https://youtu.be/fiOXtyjQzY8",
+	];
   const IntialCompleted = () => {
     Setclassifying(true);
   };
@@ -34,12 +42,12 @@ function ClassifyAll({ type, level }) {
   const whatdoing = () => {
     return doingright;
   };
-  const updatelevel = (user) => {
+  const updatelevel = (user_id) => {
     const token = localStorage.getItem('token');
     return axios
       .post(
         baseUrl + 'updatelevel',
-        { user },
+        { user_id },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -47,20 +55,16 @@ function ClassifyAll({ type, level }) {
         }
       )
       .then((response) => {
-        var newlevel = response.data.level;
-        localStorage.setItem('level', newlevel);
-        console.log(localStorage.getItem('level'));
-        state.auth.level = newlevel;
-          localStorage.setItem("creds", JSON.stringify(state));
-        console.log(JSON.parse(localStorage.getItem("creds")));
-
+        state.auth.user = response.data;
+        localStorage.setItem("creds", JSON.stringify(state.auth.user));
+        Setnext(true);
 
       })
       .catch((error) => console.log(error));
   };
   const Finished = () => {
      if(type!=="practice")
-    updatelevel(state.auth.user);
+    updatelevel(state.auth.user.user_id);
     Setcompleted(true);
     Setclassifying(false);
   };
@@ -86,22 +90,20 @@ function ClassifyAll({ type, level }) {
       );
     } else if (starting && classifying && !completed) {
       return (
-        <div className=''>
-          <span className='text-xl text-primary text-center font-bold text-jost'>
-            {doingright ? 'Doing Great 😂' : 'Keep Trying 🐒'}
-          </span>
-          <Clock total={5} pause={pause} onComplete={Finished} />
-        </div>
-      );
+				<div className="flex-col justify-center ml-5">
+					<Clock total={10} pause={pause} onComplete={Finished} />
+					<span className="text-xl text-primary text-center font-bold text-jost">
+						{doingright ? "Doing Great" : "Keep Trying"}
+					</span>
+				</div>
+			);
     } else if (completed && !next) {
-      console.log('Again');
       return (
         <Confetti
           width={window.innerWidth}
           height={window.innerHeight}
-          numberOfPieces={100}
+          numberOfPieces={50}
           recycle={false}
-          onConfettiComplete={() => Setnext(true)}
         />
       );
     } else if (next) {
@@ -122,60 +124,84 @@ function ClassifyAll({ type, level }) {
     return classifying;
   };
   return (
-    <div className='flex flex-col w-full h-full bg-primary-light overflow-hidden overflow-y-hidden'>
-      {modelloading && (
-        <div className='absolute w-full bg-primary-light z-50 overflow-hidden ' style={{'height':'90vh'}}>
-          <div className='flex flex-col justify-center items-center h-full'>
-            <Loader
-              type='Circles'
-              color='#424874'
-              height={100}
-              width={100}
-              //3 secs
-            />
-            <span className='text-base font-jost '>
-              If taking more time than might be you have blocked the camera
-              access!
-            </span>
-          </div>
-        </div>
-      )}
-      <div className=' w-full h-full lg:flex'>
-        <div className='w-full  h-full lg:w-1/2 '>
-          <Detection
-            Setmodelloading={Setmodelloading}
-            Setdoingright={Modelcheck}
-            Classifying={Classifying}
-            whatdoing={whatdoing}
-            asana={levels[levelis-1]}
-          />
-        </div>
-        <div className='w-full lg:w-1/2 h-full relative  '>
-          <div className='text-3xl text-jost font-bold text-secondary-dark w-full flex justify-center mt-5'>
-            Perform same as shown below
-          </div>
-          <div className='flex justify-center '>
-            <img src={imageurl} alt='...' width='400' height='400' />
-          </div>
-          <img
-            src={keepit}
-            className='absolute bottom-0 right-0 keep_img'
-            alt='..'
-          />
-          {starting && !completed && (
-            <img
-              src={doingright ? Running : StopRunning}
-              className='absolute bottom-0 left-0 keep_img'
-              alt='...'
-            />
-          )}
-          <div className='flex justify-center '>
-            <Startbutton />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+		<div
+			className="flex flex-col w-full h-full bg-primary-light overflow-hidden overflow-y-hidden"
+			style={{ minHeight: "91vh" }}
+		>
+			{modelloading && (
+				<div
+					className="absolute w-full bg-primary-light z-50 overflow-hidden "
+					style={{ height: "90vh" }}
+				>
+					<div className="flex flex-col justify-center items-center h-full">
+						<Loader
+							type="Circles"
+							color="#424874"
+							height={100}
+							width={100}
+							//3 secs
+						/>
+						<span className="text-base font-jost ">
+							If taking more time than might be you have blocked the camera
+							access!
+						</span>
+					</div>
+				</div>
+			)}
+			<div className=" w-full h-full lg:flex">
+				<div className="w-full  h-full lg:w-1/2 ">
+					<Detection
+						Setmodelloading={Setmodelloading}
+						Setdoingright={Modelcheck}
+						Classifying={Classifying}
+						whatdoing={whatdoing}
+						asana={levels[levelis - 1]}
+					/>
+				</div>
+				<div className="w-full lg:w-1/2 h-full relative  ">
+					<div className="text-2xl text-jost font-bold text-secondary-dark w-full flex justify-center ">
+						Perform same as shown below
+					</div>
+					<div className="  flex justify-center items-center ">
+						<a
+							className="text-2xl font-jost text-secondary-dark font-bold uppercase mt-1 flex"
+							href={youtubeUrl[levelis - 1]}
+							target="_blank"
+							rel="noreferrer"
+						>
+							<img
+								src="https://img.icons8.com/doodle/32/000000/youtube-play--v2.png"
+								alt="Youtube"
+							/>
+							{levels[levelis - 1]}
+						</a>
+					</div>
+					<div className="  flex justify-center items-center ">
+						<img
+							src={`${baseUrl}data/images/${levels[levelis - 1]}.jpg`}
+							alt="..."
+						/>
+					</div>
+
+					<img
+						src={keepit}
+						className="absolute bottom-0 right-0 keep_img"
+						alt=".."
+					/>
+					{starting && !completed && (
+						<img
+							src={doingright ? Running : StopRunning}
+							className="absolute bottom-0 left-0 keep_img"
+							alt="..."
+						/>
+					)}
+					<div className="flex justify-center w-full">
+						<Startbutton />
+					</div>
+				</div>
+			</div>
+		</div>
+	);
 }
 
 export default ClassifyAll;
