@@ -11,7 +11,6 @@ import NextButton from './NextButton';
 import axios from 'axios';
 import {  useSelector } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
-import { ConfigureStore } from '../redux/configureStore';
 
 function ClassifyAll({ type, level }) {
   const [starting, Setstarting] = useState(false);
@@ -20,9 +19,8 @@ function ClassifyAll({ type, level }) {
   const [classifying, Setclassifying] = useState(false);
   const [completed, Setcompleted] = useState(false);
   const [next, Setnext] = useState(false);
-
   const state = useSelector((state) => state);
-  const levelis = type !=='practice'? state.auth.level : 1;
+  const levelis = type !=='practice'? level : 1;
   const levels = [
 		"tadasana",
 		"vrikshasana",
@@ -44,12 +42,12 @@ function ClassifyAll({ type, level }) {
   const whatdoing = () => {
     return doingright;
   };
-  const updatelevel = (user) => {
+  const updatelevel = (user_id) => {
     const token = localStorage.getItem('token');
     return axios
       .post(
         baseUrl + 'updatelevel',
-        { user },
+        { user_id },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -57,20 +55,16 @@ function ClassifyAll({ type, level }) {
         }
       )
       .then((response) => {
-        var newlevel = response.data.level;
-        localStorage.setItem('level', newlevel);
-        console.log(localStorage.getItem('level'));
-        state.auth.level = newlevel;
-        localStorage.setItem("creds", JSON.stringify(state.auth));
-        console.log(JSON.parse(localStorage.getItem("creds")));
-
+        state.auth.user = response.data;
+        localStorage.setItem("creds", JSON.stringify(state.auth.user));
+        Setnext(true);
 
       })
       .catch((error) => console.log(error));
   };
   const Finished = () => {
      if(type!=="practice")
-    updatelevel(state.auth);
+    updatelevel(state.auth.user.user_id);
     Setcompleted(true);
     Setclassifying(false);
   };
@@ -97,7 +91,7 @@ function ClassifyAll({ type, level }) {
     } else if (starting && classifying && !completed) {
       return (
 				<div className="flex-col justify-center ml-5">
-					<Clock total={0} pause={pause} onComplete={Finished} />
+					<Clock total={10} pause={pause} onComplete={Finished} />
 					<span className="text-xl text-primary text-center font-bold text-jost">
 						{doingright ? "Doing Great" : "Keep Trying"}
 					</span>
@@ -110,7 +104,6 @@ function ClassifyAll({ type, level }) {
           height={window.innerHeight}
           numberOfPieces={50}
           recycle={false}
-          onConfettiComplete={() => Setnext(true)}
         />
       );
     } else if (next) {
@@ -133,7 +126,7 @@ function ClassifyAll({ type, level }) {
   return (
 		<div
 			className="flex flex-col w-full h-full bg-primary-light overflow-hidden overflow-y-hidden"
-			style={{ "min-height": "91vh" }}
+			style={{ minHeight: "91vh" }}
 		>
 			{modelloading && (
 				<div

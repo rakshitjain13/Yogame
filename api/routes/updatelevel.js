@@ -11,7 +11,8 @@ router.post(
   cors.corsWithOptions,
   authenticate.verifyUser,
   (req, res, next) => {
-    User.findById(req.body.user.user_id)
+    console.log(req.body.user_id);
+    User.findById(req.body.user_id)
       .then((user) => {
         user.level = user.level + 1;
         user.save().then((obj) => {

@@ -7,7 +7,6 @@ class Login extends Component {
 
 
   render() {
-    console.log(this.props);
     const responseGoogle = (response) => {
       var profile = response.profileObj;
       this.props.dispatch(loginUser(profile));

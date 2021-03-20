@@ -2,7 +2,6 @@ import Matimage from '../images/mat.png';
 import Back from '../images/abstract-wallpaper_23-2148663179.jpg';
 import './home.css';
 import Pose from '../images/yoga-pose-estimation-removebg.png';
-import Login from '../components/loginButton';
 import { Component } from 'react';
 
 class Home extends Component {

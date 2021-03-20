@@ -32,11 +32,10 @@ export const loginUser = (profileObj) => (dispatch, Ownprops) => {
           user_id: response.user._id,
           username: response.user.username,
           imageUrl: response.user.imageUrl,
+          level:response.user.level
         };
-        var level = response.user.level;
         localStorage.setItem('token', response.token);
         localStorage.setItem('creds', JSON.stringify(creds));
-        localStorage.setItem('level', level);
         // Dispatch the success action
         dispatch(receiveLogin(response, creds));
       } else {
@@ -68,9 +67,7 @@ export const logoutUser = () => (dispatch) => {
 
 
 export const LevelUpdated = () => {
-  const state=JSON.parse(localStorage.getItem('creds'))
   return {
-    type: ActionTypes.LEVEL_UPDATED,
-    state,
+    type: ActionTypes.LEVEL_UPDATED
   };
 };

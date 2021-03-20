@@ -2,7 +2,7 @@
 
 function Footer() {
     return (
-			<div className="bg-primary-light p-1 w-full h-full flex justify-center text-jost font-semibold antialiased ">
+			<div className="bg-primary-light p-1 w-full h-full flex justify-center text-jost text-sm font-semibold antialiased ">
 				<a
 					href="https://github.com/rakshitjain13/Yogame"
 					target="_blank"
@@ -10,7 +10,7 @@ function Footer() {
 					className="flex"
 				>
 					<img
-						src="https://img.icons8.com/material-outlined/24/000000/github.png"
+						src="https://img.icons8.com/material-outlined/18/000000/github.png"
 						alt="Git"
 					/>{" "}
 					Github

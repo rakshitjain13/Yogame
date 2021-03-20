@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect,memo } from "react";
 import { useState } from "react";
 import "./clock.css";
