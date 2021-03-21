@@ -1,4 +1,4 @@
-# A Yoga Automated instructor 
+# A Yoga Automated instructor <img src="https://yoga-pose-game.web.app/favicon.ico" alt=""/>
 > As we all are aware,these are tough times ,people are stuck in their homes because of the pandemic,devoid of proper resources to keep a good track of their health.
 > We bring to their aid this project called 'YoGame'.
 > 'YoGame' is an automated yoga instructor that enables people to practice Yoga and exercise in the calm environment of their homes without having to go and risk their health outside.
@@ -54,4 +54,6 @@ To-do list:
 Project is: Completed
 
 ## Contact
-Created with ❤️ by Mukhrit (https://github.com/Mukhrit) & Rakshit (https://github.com/rakshitjain13) - feel free to contact us!
+<a href="https://www.buymeacoffee.com/rakshitjain13" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
+</br>
+Created with ❤️ by Mukhrit (https://github.com/Mukhrit,<a href=""><img src="https://img.icons8.com/fluent/28/000000/linkedin.png" alt="..."/></a>) & Rakshit (https://github.com/rakshitjain13,<a href=""><img src="https://img.icons8.com/fluent/28/000000/linkedin.png" alt="..." style="border':'none'"/></a>) - feel free to contact us!
