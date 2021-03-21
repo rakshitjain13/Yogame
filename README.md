@@ -54,4 +54,4 @@ To-do list:
 Project is: Completed
 
 ## Contact
-Created by https://github.com/Mukhrit & https://github.com/rakshitjain13 - feel free to contact us!
+Created with ❤️ by Mukhrit (https://github.com/Mukhrit) & Rakshit (https://github.com/rakshitjain13) - feel free to contact us!
