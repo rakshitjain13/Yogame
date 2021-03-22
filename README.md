@@ -56,4 +56,4 @@ Project is: Completed
 ## Contact
 <a href="https://www.buymeacoffee.com/rakshitjain13" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
 </br>
-Created with ❤️ by Mukhrit (https://github.com/Mukhrit,<a href=""><img src="https://img.icons8.com/fluent/28/000000/linkedin.png" alt="..."/></a>) & Rakshit (https://github.com/rakshitjain13,<a href=""><img src="https://img.icons8.com/fluent/28/000000/linkedin.png" alt="..." style="border':'none'"/></a>) - feel free to contact us!
+Created with ❤️ by Mukhrit <a href="https://github.com/Mukhrit"><img src="https://img.icons8.com/material-sharp/24/000000/github.png"/></a>,<a href="https://www.linkedin.com/in/mukhrit-gupta-553196194/"><img src="https://img.icons8.com/fluent/24/000000/linkedin.png" alt="..."/></a>) & Rakshit <a href="https://github.com/rakshitjain13"><img src="https://img.icons8.com/material-sharp/24/000000/github.png"/></a>,<a href="https://www.linkedin.com/in/rakshit-jain-9b83b5170/"><img src="https://img.icons8.com/fluent/24/000000/linkedin.png" alt="..." /></a>) - feel free to contact us!
